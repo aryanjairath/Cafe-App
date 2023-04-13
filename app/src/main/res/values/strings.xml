@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CS213_Project5</string>
+    <string name="coffee_name">Submit Coffee Order</string>
+
 </resources>
