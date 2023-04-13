@@ -1,5 +1,25 @@
 <resources>
     <string name="app_name">CS213_Project5</string>
     <string name="coffee_name">Submit Coffee Order</string>
-
+    <string name="DonutDropDown">Select a Donut</string>
+    <string-array name="donuts">
+        <item>Yeast Donut</item>
+        <item>Cake Donut</item>
+        <item>Donut Hole</item>
+    </string-array>
+    <string-array name="yeast">
+        <item>Yeast</item>
+        <item>fs</item>
+        <item>f</item>
+    </string-array>
+    <string-array name="cake">
+        <item>Yeast Donut</item>
+        <item>Cake Donut</item>
+        <item>Donut Hole</item>
+    </string-array>
+    <string-array name="holes">
+        <item>Yeast Donut</item>
+        <item>Cake Donut</item>
+        <item>Donut Hole</item>
+    </string-array>
 </resources>
