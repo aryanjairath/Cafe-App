@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Add"
-                android:onClick="onAdd"/>
+                android:onClick="onAdd" />
 
             <Button
                 android:id="@+id/removeDonut"
@@ -87,8 +87,8 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycleItems"
-            android:layout_width="wrap_content"
-            android:layout_height="160dp" />
+            android:layout_width="match_parent"
+            android:layout_height="305dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
