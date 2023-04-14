@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CS213_Project5">
         <activity
-            android:name=".MainActivity"
+            android:name=".DonutActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

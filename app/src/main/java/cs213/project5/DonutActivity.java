@@ -12,17 +12,6 @@ public class DonutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.donut_layout);
-        doit();
-    }
-
-    protected void doit(){
-        ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this, R.array.donuts, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        Spinner spinnerLangauge = findViewById(R.id.spinnerdrop);
-        spinnerLangauge.setAdapter(adapter);
-    }
-
-    public void doit(View view) {
+        setContentView(R.layout.activity_main);
     }
 }
