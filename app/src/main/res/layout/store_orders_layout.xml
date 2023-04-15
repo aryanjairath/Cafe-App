@@ -19,7 +19,7 @@
 
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="624dp" />
+            android:layout_height="563dp" />
 
         <LinearLayout
             android:layout_width="match_parent"

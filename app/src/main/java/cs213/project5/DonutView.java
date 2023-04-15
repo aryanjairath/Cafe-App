@@ -11,11 +11,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 //Testing app for android
-public class DonutActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
+public class DonutView extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
     private ArrayList<String> orders = new ArrayList<>();
     private TextView totalDonut;
@@ -23,8 +22,6 @@ public class DonutActivity extends AppCompatActivity implements AdapterView.OnIt
     private Spinner spinnerquantity;
     private Spinner spinnerflavor;
     private RecyclerView recycleview;
-    private double total;
-    private static final int TWODIGITS = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +33,6 @@ public class DonutActivity extends AppCompatActivity implements AdapterView.OnIt
         spinnerquantity = findViewById(R.id.spinnerquantity);
         spinnerflavor = findViewById(R.id.spinnerflavor);
         recycleview = findViewById(R.id.recycleItems);
-        total = 0;
         doit();
         spinnerdrop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -89,8 +85,8 @@ public class DonutActivity extends AppCompatActivity implements AdapterView.OnIt
             spinnerLangauge2.setAdapter(adapter2);
         }
     }
-    public void donutView(View view) {
-        Intent intent = new Intent(this, DonutActivity.class);
+    public void mainView(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
 
     }
@@ -101,38 +97,11 @@ public class DonutActivity extends AppCompatActivity implements AdapterView.OnIt
     }
 
     public void onAdd(View view) {
-        String addDonut = spinnerflavor.getSelectedItem().toString();
+        String addDonut = spinnerdrop.getSelectedItem().toString();
         addDonut += "("+spinnerquantity.getSelectedItem().toString()+")";
         orders.add(addDonut);
-        ItemsAdapter adapter = new ItemsAdapter(this, orders); //create the adapter
-        recycleview.setAdapter(adapter); //bind the list of items to the RecyclerView
+        //use the LinearLayout for the RecyclerView
         recycleview.setLayoutManager(new LinearLayoutManager(this));
-        int quantity = Integer.parseInt(spinnerquantity.getSelectedItem().toString());
-        String donutType = spinnerdrop.getSelectedItem().toString();
-        String flavor = spinnerflavor.getSelectedItem().toString();
-        if(donutType.equals("Yeast Donut")){
-            Yeast yeast = new Yeast(flavor);
-            total += yeast.itemPrice() * quantity;
-        }
-        if(donutType.equals("Cake Donut")){
-            Cake cake = new Cake(flavor);
-            total += cake.itemPrice() * quantity;
-        }
-        if(donutType.equals("Donut Hole")){
-            DonutHole hole = new DonutHole(flavor);
-            total += hole.itemPrice() * quantity;
-        }
-        round();
-    }
-    /**
-     * Rounds a given decimal to two decimal places
-     */
-    private void round(){
-        DecimalFormat df = new DecimalFormat();
-        df.setMinimumFractionDigits(TWODIGITS);
-        df.setMaximumFractionDigits(TWODIGITS);
-        totalDonut.setText(df.format(total));
-        total = Double.parseDouble(df.format(total));
-    }
 
+    }
 }
