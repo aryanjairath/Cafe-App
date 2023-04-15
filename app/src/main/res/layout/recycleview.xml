@@ -13,7 +13,7 @@
         android:layout_weight="1"
         android:paddingLeft="16dp" />
     <Button
-        android:id="@+id/btn_add"
+        android:id="@+id/removebutton"
         android:layout_width="47dp"
         android:layout_height="43dp"
         android:layout_marginStart="0dp"

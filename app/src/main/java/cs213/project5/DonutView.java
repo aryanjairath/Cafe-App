@@ -17,14 +17,17 @@ import java.util.ArrayList;
 //Testing app for android
 public class DonutView extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
-    private ArrayList<String> orders = new ArrayList<>();
+    private static ArrayList<String> orders = new ArrayList<>();
     private TextView totalDonut;
     private Spinner spinnerdrop;
     private Spinner spinnerquantity;
     private Spinner spinnerflavor;
     private RecyclerView recycleview;
-    private double total;
+    private static double total;
     private static final int TWODIGITS = 2;
+    private static final int OFFSETTWO = 2;
+    private static final int OFFSETONE = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +54,9 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
         });
 
     }
-
+    public void setOrders(ArrayList<String> orders){
+        this.orders = orders;
+    }
     public void doit(){
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.donuts, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -119,6 +124,35 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
         }
         round();
     }
+
+
+    public void onRemove(String value) {
+        orders.add(value);
+        int quantity;
+        if(value.contains("Strawberry") || value.contains("Vanilla")
+                || value.contains("Blueberry") || value.contains("Apple")
+                || value.contains("Grape") || value.contains("Passionfruit")){
+            quantity = Integer.parseInt(value.substring(value.length() -
+                    OFFSETTWO,value.length() - OFFSETONE));
+            Yeast yeast = new Yeast("Any");
+            total -= yeast.itemPrice() * quantity;
+        }
+        if(value.contains("French") || value.contains("Original")
+                || value.contains("Powder")){
+            quantity = Integer.parseInt(value.substring(value.length() -
+                    OFFSETTWO,value.length() - OFFSETONE));
+            DonutHole hole = new DonutHole("Any");
+            total -= hole.itemPrice() * quantity;
+        }
+        if(value.contains("Birthday Cake") || value.contains("Chocolate Cake")
+                || value.contains("Cheese Cake")){
+            quantity = Integer.parseInt(value.substring(value.length() -
+                    OFFSETTWO,value.length() - OFFSETONE));
+            Cake cake = new Cake("Any");
+            total -= cake.itemPrice() * quantity;
+        }
+        //round();
+    }
     /**
      * Rounds a given decimal to two decimal places
      */
@@ -129,5 +163,4 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
         totalDonut.setText(df.format(total));
         total = Double.parseDouble(df.format(total));
     }
-
 }
