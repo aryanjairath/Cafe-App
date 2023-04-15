@@ -111,11 +111,12 @@
                 android:layout_weight="1" />
 
             <Button
-                android:id="@+id/AddtoOrder"
+                android:id="@+id/addtoOrder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Add To Order" />
+                android:text="Add To Order"
+                android:onClick="onAddOrder" />
         </LinearLayout>
     </LinearLayout>
 

@@ -24,6 +24,9 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
     private Spinner spinnerflavor;
     private RecyclerView recycleview;
     private static double total;
+    private Order order;
+    private int uniqueOrder = 0;
+
     private static final int TWODIGITS = 2;
     private static final int OFFSETTWO = 2;
     private static final int OFFSETONE = 1;
@@ -40,6 +43,7 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
         spinnerflavor = findViewById(R.id.spinnerflavor);
         recycleview = findViewById(R.id.recycleItems);
         total = 0;
+        order = new Order(uniqueOrder);
         doit();
         spinnerdrop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -127,7 +131,7 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
 
 
     public void onRemove(String value) {
-        orders.add(value);
+        orders.remove(value);
         int quantity;
         if(value.contains("Strawberry") || value.contains("Vanilla")
                 || value.contains("Blueberry") || value.contains("Apple")
@@ -162,5 +166,16 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
         df.setMaximumFractionDigits(TWODIGITS);
         totalDonut.setText(df.format(total));
         total = Double.parseDouble(df.format(total));
+    }
+
+    public void onAddOrder(View view) {
+        for(int i = 0; i < orders.size(); i++) {
+            String type = orders.get(i);
+            order.addItem(type);
+        }
+
+        AllOrders.runningTotal += total;
+        order.setPrice(AllOrders.runningTotal);
+        AllOrders.addOrder(order, uniqueOrder);
     }
 }
