@@ -1,5 +1,6 @@
 package cs213.project5;
 
+import android.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -23,6 +24,8 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
     private static double TAXRATE = .06625;
 
     private static int SIZEINDEX = 1;
+    private static int ZEROTOTAL = 1;
+    private static int OFFSETINDEX = 1;
 
     /**
      * Initial setup for the Views and the adapter for the ListView
@@ -80,13 +83,18 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
      */
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        /*AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("Demo the alert dialog.");
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Remove the selected item?");
         alert.setMessage(adapterView.getAdapter().getItem(i).toString());
+        String item = adapterView.getAdapter().getItem(i).toString();
         //anonymous inner class to handle the onClick event of YES or NO.
         alert.setPositiveButton("yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(getApplicationContext(), "YES", Toast.LENGTH_LONG).show();
+                alldonuts.remove(adapterView.getAdapter().getItem(i).toString());
+                onRemove(item);
+                System.out.println(item);
+                adapter.notifyDataSetChanged();
             }
         }).setNegativeButton("no", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
@@ -95,5 +103,60 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
         });
         AlertDialog dialog = alert.create();
         dialog.show();
-    */}
+    }
+    protected void onRemove(String value) {
+        ArrayList<Order> list = AllOrders.allOrderR();
+        list.get(list.size() - SIZEINDEX).getMenuItems().remove(value);
+        int quantity;
+        double amt = ZEROTOTAL;
+        int quantity1 = Integer.parseInt(value.substring(value.indexOf('(')
+                + OFFSETINDEX, value.indexOf(')')));
+        if (checkFlavor(value)) {
+            quantity = quantity1;
+            Yeast yeast = new Yeast("Any");
+            amt = Double.parseDouble(subtotal.getText()+"") - yeast.itemPrice() * quantity;
+        }
+        if (value.contains("French") || value.contains("Original")
+                || value.contains("Powder")) {
+            quantity = quantity1;
+            DonutHole hole = new DonutHole("Any");
+            amt = Double.parseDouble(subtotal.getText()+"") - hole.itemPrice() * quantity;
+        }
+        if (value.contains("Birthday Cake") || value.contains("Chocolate Cake")
+                || value.contains("Cheese Cake")) {
+            quantity = quantity1;
+            Cake cake = new Cake("Any");
+            amt = Double.parseDouble(subtotal.getText()+"") - cake.itemPrice() * quantity;
+        }
+        /*if(checkCoffee(value)){
+            String sizeOfCoffee = value.substring(0, value.indexOf("("));
+            quantity = Integer.parseInt(value.substring(
+                    value.indexOf("(") + OFFSETINDEX, value.indexOf(")")));
+            Coffee tempCoffee = getCoffeeObject(value, sizeOfCoffee);
+            amt = Double.parseDouble(subtotal.getText()) -
+                    tempCoffee.itemPrice() * quantity;
+        }*/
+        list.get(list.size() - SIZEINDEX)
+                .setPrice(Double.parseDouble(round(amt)));
+        revealPricing();
+    }
+    private void revealPricing(){
+        ArrayList<Order> list = AllOrders.allOrderR();
+        subtotal.setText(round(list.get(list.size() - SIZEINDEX).getPrice()));
+        double taxAmt = list.get(list.size() - SIZEINDEX).getPrice() * TAXRATE;
+        tax.setText(round(taxAmt));
+        due.setText(round(taxAmt + list.get(list.size() - SIZEINDEX).
+                getPrice()) + "");
+    }
+    /**
+     * Checks if a donut item has a particular flavor.
+     * @param value a string containing the order in question.
+     * @return a boolean if the donut order has any of the possible flavors.
+     */
+    public boolean checkFlavor(String value){
+        return value.contains("Strawberry") || value.contains("Vanilla")
+                || value.contains("Blueberry") || value.contains("Apple")
+                || value.contains("Grape") || value.contains("Passionfruit");
+    }
+
 }

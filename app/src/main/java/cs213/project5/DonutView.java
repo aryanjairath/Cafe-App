@@ -23,7 +23,7 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
     private Spinner spinnerquantity;
     private Spinner spinnerflavor;
     private RecyclerView recycleview;
-    private static double total;
+    public static double total;
     private Order order;
     private int uniqueOrder = 0;
 

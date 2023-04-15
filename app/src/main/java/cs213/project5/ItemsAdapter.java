@@ -89,9 +89,7 @@ public class ItemsAdapter extends
                     //handle the "YES" click
                     alert.setPositiveButton("yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            DonutView view = new DonutView();
-                            view.setOrders(mContacts);
-                            view.onRemove(nameTextView.getText().toString());
+                            mContacts.remove(nameTextView.getText().toString());
                             Toast.makeText(itemView.getContext(),
                                     nameTextView.getText().toString() + " sucessfully removed.", Toast.LENGTH_LONG).show();
                         }
