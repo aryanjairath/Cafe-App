@@ -45,5 +45,18 @@
         <item>5</item>
     </string-array>
 
+    <string-array name="Sizes">
+        <item>Short</item>
+        <item>Tall</item>
+        <item>Grande</item>
+        <item>Venti</item>
+    </string-array>
+
+    <string name="SweetCream">Sweet Cream</string>
+    <string name="FrenchVanilla">French Vanilla</string>
+    <string name="IrishCream">Irish Cream</string>
+    <string name="Caramel">Caramel</string>
+    <string name="Mocha">Mocha</string>
+    <string name="AddCoffee">Add coffee</string>
 
 </resources>

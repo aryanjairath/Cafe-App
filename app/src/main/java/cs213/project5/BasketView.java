@@ -104,7 +104,7 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
         AlertDialog dialog = alert.create();
         dialog.show();
     }
-    protected void onRemove(String value) {
+    protected void onRemove(String value){
         ArrayList<Order> list = AllOrders.allOrderR();
         list.get(list.size() - SIZEINDEX).getMenuItems().remove(value);
         int quantity;
