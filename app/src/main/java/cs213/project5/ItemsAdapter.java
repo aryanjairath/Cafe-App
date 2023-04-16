@@ -89,7 +89,7 @@ public class ItemsAdapter extends
                     //handle the "YES" click
                     alert.setPositiveButton("yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            mContacts.remove(nameTextView.getText().toString());
+
                             Toast.makeText(itemView.getContext(),
                                     nameTextView.getText().toString() + " sucessfully removed.", Toast.LENGTH_LONG).show();
                         }

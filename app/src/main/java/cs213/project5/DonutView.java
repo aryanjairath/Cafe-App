@@ -26,7 +26,7 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
     public static double total;
     private Order order;
     private int uniqueOrder = 0;
-
+    private ItemsAdapter adapter;
     private static final int TWODIGITS = 2;
     private static final int OFFSETTWO = 2;
     private static final int OFFSETONE = 1;
@@ -44,6 +44,9 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
         recycleview = findViewById(R.id.recycleItems);
         total = 0;
         order = new Order(uniqueOrder);
+        adapter = new ItemsAdapter(this, orders); //create the adapter
+        recycleview.setAdapter(adapter); //bind the list of items to the RecyclerView
+        recycleview.setLayoutManager(new LinearLayoutManager(this));
         doit();
         spinnerdrop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -108,9 +111,7 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
         String addDonut = spinnerflavor.getSelectedItem().toString();
         addDonut += "("+spinnerquantity.getSelectedItem().toString()+")";
         orders.add(addDonut);
-        ItemsAdapter adapter = new ItemsAdapter(this, orders); //create the adapter
-        recycleview.setAdapter(adapter); //bind the list of items to the RecyclerView
-        recycleview.setLayoutManager(new LinearLayoutManager(this));
+        adapter.notifyDataSetChanged();
         int quantity = Integer.parseInt(spinnerquantity.getSelectedItem().toString());
         String donutType = spinnerdrop.getSelectedItem().toString();
         String flavor = spinnerflavor.getSelectedItem().toString();
@@ -132,6 +133,7 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
 
     public void onRemove(String value) {
         orders.remove(value);
+        adapter.notifyDataSetChanged();
         int quantity;
         if(value.contains("Strawberry") || value.contains("Vanilla")
                 || value.contains("Blueberry") || value.contains("Apple")
@@ -157,6 +159,7 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
         }
         //round();
     }
+
     /**
      * Rounds a given decimal to two decimal places
      */
@@ -169,13 +172,15 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
     }
 
     public void onAddOrder(View view) {
-        for(int i = 0; i < orders.size(); i++) {
+        for (int i = 0; i < orders.size(); i++) {
             String type = orders.get(i);
             order.addItem(type);
         }
-
         AllOrders.runningTotal += total;
         order.setPrice(AllOrders.runningTotal);
         AllOrders.addOrder(order, uniqueOrder);
+        orders = new ArrayList<>();
+        adapter.notifyDataSetChanged();
     }
+
 }

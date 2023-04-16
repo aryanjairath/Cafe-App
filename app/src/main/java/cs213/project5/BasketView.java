@@ -26,6 +26,9 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
     private static int SIZEINDEX = 1;
     private static int ZEROTOTAL = 1;
     private static int OFFSETINDEX = 1;
+    private static final int OFFSETTWO = 2;
+    private static final int OFFSETONE = 1;
+
 
     /**
      * Initial setup for the Views and the adapter for the ListView
@@ -51,13 +54,45 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
         if(list.size() == 0){
             return;
         }
-        subtotal.setText(round(list.get(list.size() - SIZEINDEX).getPrice()));
-        double taxAmt = list.get(list.size() - SIZEINDEX).getPrice() * TAXRATE;
-        tax.setText(round(taxAmt));
-        due.setText(round(taxAmt + list.get(list.size() - SIZEINDEX).
-                getPrice()) + "");
+        recalculate();
 
     }
+
+    private void recalculate() {
+        int quantity;
+        double total = 0;
+        for(int i = 0; i <alldonuts.size(); i++) {
+            String value = alldonuts.get(i);
+            if (value.contains("Strawberry") || value.contains("Vanilla")
+                    || value.contains("Blueberry") || value.contains("Apple")
+                    || value.contains("Grape") || value.contains("Passionfruit")) {
+                quantity = Integer.parseInt(value.substring(value.length() -
+                        OFFSETTWO, value.length() - OFFSETONE));
+                Yeast yeast = new Yeast("Any");
+                total += yeast.itemPrice() * quantity;
+            }
+            if (value.contains("French") || value.contains("Original")
+                    || value.contains("Powder")) {
+                quantity = Integer.parseInt(value.substring(value.length() -
+                        OFFSETTWO, value.length() - OFFSETONE));
+                DonutHole hole = new DonutHole("Any");
+                total += hole.itemPrice() * quantity;
+            }
+            if (value.contains("Birthday Cake") || value.contains("Chocolate Cake")
+                    || value.contains("Cheese Cake")) {
+                quantity = Integer.parseInt(value.substring(value.length() -
+                        OFFSETTWO, value.length() - OFFSETONE));
+                Cake cake = new Cake("Any");
+                total += cake.itemPrice() * quantity;
+            }
+        }
+        subtotal.setText(round(total)+"");
+        double taxAmt = total * TAXRATE;
+        tax.setText(round(taxAmt));
+        due.setText(round(taxAmt + total)+"");
+    }
+
+
     /**
      * This method rounds a decimal number to two digits
      * @param amount The value to round to two decimals
@@ -136,9 +171,9 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
             amt = Double.parseDouble(subtotal.getText()) -
                     tempCoffee.itemPrice() * quantity;
         }*/
-        list.get(list.size() - SIZEINDEX)
-                .setPrice(Double.parseDouble(round(amt)));
+        AllOrders.allOrder.get(list.size()-SIZEINDEX).setPrice(amt);
         revealPricing();
+
     }
     private void revealPricing(){
         ArrayList<Order> list = AllOrders.allOrderR();
