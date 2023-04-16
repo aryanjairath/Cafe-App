@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DonutActivity"
+    tools:context=".CoffeeView"
     android:orientation="horizontal">
 
     <LinearLayout
@@ -24,7 +24,7 @@
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             app:srcCompat="@drawable/coffee" />
 
         <LinearLayout
@@ -33,33 +33,31 @@
             android:orientation="horizontal">
 
             <CheckBox
-                android:id="@+id/checkBox"
+                android:id="@+id/swbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="CheckBox" />
+                android:text="@string/SweetCream"/>
 
             <CheckBox
-                android:id="@+id/checkBox2"
+                android:id="@+id/fVanilla"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="CheckBox" />
+                android:text="@string/FrenchVanilla"/>
 
             <CheckBox
-                android:id="@+id/checkBox3"
+                android:id="@+id/icream"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="CheckBox" />
-
+                android:text="@string/IrishCream"/>
             <CheckBox
-                android:id="@+id/checkBox4"
+                android:id="@+id/caramel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="CheckBox" />
-
+                android:text="@string/Caramel"/>
         </LinearLayout>
 
         <LinearLayout
@@ -68,11 +66,29 @@
             android:orientation="horizontal">
 
             <CheckBox
-                android:id="@+id/checkBox6"
+                android:id="@+id/mochaBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="CheckBox" />
+                android:text="@string/Mocha"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/spinnerSize"
+                android:layout_width="86dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <Spinner
+                android:id="@+id/spinnerQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
         </LinearLayout>
 
         <LinearLayout
@@ -80,37 +96,15 @@
             android:layout_height="38dp"
             android:orientation="horizontal">
 
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_width="86dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <Spinner
-                android:id="@+id/spinner2"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-        </LinearLayout>
-
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="277dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:orientation="horizontal">
-
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="TextView" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -121,6 +115,32 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:text="@string/coffee_name" />
+
+            <Button
+                android:id="@+id/button7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/AddCoffee"
+                android:onClick="onAdd"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/coffeeList"
+                android:layout_width="match_parent"
+                android:layout_height="342dp" >
+            </ListView>
+
+            <Button
+                android:id="@+id/button6"
+                android:layout_width="match_parent"
+                android:layout_height="18dp"
                 android:text="Button" />
         </LinearLayout>
 
