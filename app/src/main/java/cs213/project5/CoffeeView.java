@@ -66,6 +66,7 @@ public class CoffeeView extends AppCompatActivity implements AdapterView.OnItemC
         coffeeOrders = new ArrayList<String>();
         total = 0;
         loadView();
+        currentOrders.setOnItemClickListener(this);
     }
 
 
@@ -114,7 +115,6 @@ public class CoffeeView extends AppCompatActivity implements AdapterView.OnItemC
     }
 
     public void onAdd(View view){
-        System.out.println(quantSpinner.getSelectedItem().toString());
         int quantityOfCoffee = Integer.parseInt(quantSpinner.getSelectedItem().toString());
         String size = sizeSpinner.getSelectedItem().toString();
         Coffee orderedCoffee = new Coffee(size);
@@ -137,6 +137,7 @@ public class CoffeeView extends AppCompatActivity implements AdapterView.OnItemC
      */
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        System.out.println("Hit");
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Remove the selected item?");
         alert.setMessage(adapterView.getAdapter().getItem(i).toString());
@@ -144,15 +145,14 @@ public class CoffeeView extends AppCompatActivity implements AdapterView.OnItemC
         //anonymous inner class to handle the onClick event of YES or NO.
         alert.setPositiveButton("yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getApplicationContext(), "YES", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Item Removed!", Toast.LENGTH_LONG).show();
                 coffeeOrders.remove(adapterView.getAdapter().getItem(i).toString());
                 onRemove(item);
-                System.out.println(item);
-                adapter.notifyDataSetChanged();
+                adapterCoffee.notifyDataSetChanged();
             }
         }).setNegativeButton("no", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getApplicationContext(), "NO", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Item not removed!", Toast.LENGTH_LONG).show();
             }
         });
         AlertDialog dialog = alert.create();
@@ -169,6 +169,18 @@ public class CoffeeView extends AppCompatActivity implements AdapterView.OnItemC
     }
 
 
+    public void onAddOrder(View view){
+        int quantityOfCoffee = Integer.parseInt(quantSpinner.getSelectedItem().toString());
+        String size = sizeSpinner.getSelectedItem().toString();
+        Coffee orderedCoffee = new Coffee(size);
+        ArrayList<String> addOnCust = getAddons();
+        orderedCoffee.addaddIn(addOnCust);
+        if(addOnCust.size() == EMPTY)
+            coffeeOrders.add(size + "(" + quantityOfCoffee + ").");
+        else
+            coffeeOrders.add(size + "(" + quantityOfCoffee + ")" + " Addons: " +  addOnCust.toString()+ ".");
+        adapterCoffee.notifyDataSetChanged();
+    }
 
 
 }
