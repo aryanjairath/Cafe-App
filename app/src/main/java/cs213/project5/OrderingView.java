@@ -28,6 +28,4 @@ public class OrderingView extends AppCompatActivity {
         ordersView.setAdapter(adapterView);
 
     }
-
-
 }

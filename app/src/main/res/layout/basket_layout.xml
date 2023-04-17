@@ -23,8 +23,8 @@
         <ListView
             android:id="@+id/listvie"
             android:layout_width="409dp"
-            android:layout_height="500dp"
-            tools:ignore="MissingConstraints" >
+            android:layout_height="332dp"
+            tools:ignore="MissingConstraints">
 
         </ListView>
 
@@ -91,7 +91,7 @@
         <Button
             android:id="@+id/submitOrder"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:layout_weight="1"
             android:onClick="onPlace"
             android:text="Place Order" />

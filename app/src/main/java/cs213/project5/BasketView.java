@@ -186,8 +186,6 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
         due.setText(round(taxAmt + list.get(list.size() - SIZEINDEX).
                 getPrice()) + "");
     }
-
-
     /**
      * Checks if a donut item has a particular flavor.
      * @param value a string containing the order in question.
