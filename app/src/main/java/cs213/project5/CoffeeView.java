@@ -44,7 +44,7 @@ public class CoffeeView extends AppCompatActivity implements AdapterView.OnItemC
 
     private ListView currentOrders;
 
-    private double total;
+    public static double total;
 
     private static double EMPTY = 0;
 
@@ -440,5 +440,8 @@ public class CoffeeView extends AppCompatActivity implements AdapterView.OnItemC
         subTotal.setText(round(tempPrice));
     }
 
+    public static void setTotal(double tot) {
+        total = tot;
+    }
 
 }
