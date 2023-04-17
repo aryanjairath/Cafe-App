@@ -47,6 +47,8 @@ public class CoffeeView extends AppCompatActivity implements AdapterView.OnItemC
     public static double total;
 
     private static double EMPTY = 0;
+    private static int ZEROINDEX = 0;
+
 
     private static int ONE = 1;
 
@@ -392,7 +394,7 @@ public class CoffeeView extends AppCompatActivity implements AdapterView.OnItemC
         }
         AllOrders.runningTotal += total;
         coffeeOrderToAdd.setPrice(total);
-        AllOrders.addOrder(coffeeOrderToAdd, (int) EMPTY);
+        AllOrders.addOrder(coffeeOrderToAdd, ZEROINDEX);
         reset();
     }
 
@@ -407,7 +409,7 @@ public class CoffeeView extends AppCompatActivity implements AdapterView.OnItemC
         }
 
         if(frenchVanilla.isChecked()){
-           frenchVanilla.toggle();
+            frenchVanilla.toggle();
 
         }
 
