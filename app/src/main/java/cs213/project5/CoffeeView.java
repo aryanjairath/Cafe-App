@@ -12,7 +12,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.widget.CompoundButton;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class CoffeeView extends AppCompatActivity implements AdapterView.OnItemClickListener{
@@ -37,7 +38,7 @@ public class CoffeeView extends AppCompatActivity implements AdapterView.OnItemC
 
     private TextView totalPrice;
 
-    private TextView cost;
+    private TextView subTotal;
 
     private ArrayList<String> coffeeOrders;
 
@@ -47,10 +48,28 @@ public class CoffeeView extends AppCompatActivity implements AdapterView.OnItemC
 
     private static double EMPTY = 0;
 
+    private static int ONE = 1;
+
     private ArrayAdapter<String> adapterCoffee;
 
+    private ArrayList<Double> pricesOfOrders;
 
+    private Coffee calculatorCoffee;
 
+    private final double SHORT = 1.89;
+    private final double TALL = 2.29;
+    private final double GRANDE = 2.69;
+    private final double VENTI = 3.09;
+
+    private double tempPrice;
+
+    private double currQuant;
+
+    private String currSize;
+    /**
+     * Creates the view for the application
+     * @param savedInstanceState a bundle object with the state of the view.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,17 +83,100 @@ public class CoffeeView extends AppCompatActivity implements AdapterView.OnItemC
         sizeSpinner = findViewById(R.id.spinnerSize);
         currentOrders = findViewById(R.id.coffeeList);
         coffeeOrders = new ArrayList<String>();
-        total = 0;
+        pricesOfOrders = new ArrayList<Double>();
+        totalPrice = findViewById(R.id.textView6);
+        subTotal = findViewById(R.id.textViewSub);
+        setCheckBoxes();
+        setCheckBoxesAgain();
+//        subTotal.setText(tempPrice + "");
+        total = EMPTY;
+        currQuant = ONE;
         loadView();
         currentOrders.setOnItemClickListener(this);
+    }
+    private void setCheckBoxes(){
+        sweetCream.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                boolean sweetPresent = compoundButton.isChecked();
+                if(sweetPresent){
+                    tempPrice +=  0.30;
+                }else{
+                    tempPrice -= 0.30;
+                }
+                subTotal.setText(round(tempPrice));
+
+            }
+        });
+        irishCream.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                boolean sweetPresent = compoundButton.isChecked();
+                if(sweetPresent){
+                    tempPrice +=  0.30;
+                }else{
+                    tempPrice -= 0.30;
+                }
+                subTotal.setText(round(tempPrice));
+            }
+        });
+        frenchVanilla.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                boolean sweetPresent = compoundButton.isChecked();
+                if(sweetPresent){
+                    tempPrice +=  0.30;
+                }else{
+                    tempPrice -= 0.30;
+                }
+                subTotal.setText(round(tempPrice));
+
+            }
+        });
+
+    }
+    private void setCheckBoxesAgain() {
+        mochaBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                boolean sweetPresent = compoundButton.isChecked();
+                if (sweetPresent) {
+                    tempPrice += 0.30;
+                } else {
+                    tempPrice -= 0.30;
+                }
+                subTotal.setText(round(tempPrice));
+
+            }
+        });
+        caramelBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                boolean sweetPresent = compoundButton.isChecked();
+                if (sweetPresent) {
+                    tempPrice += 0.30;
+                } else {
+                    tempPrice -= 0.30;
+                }
+                subTotal.setText(round(tempPrice));
+
+            }
+        });
     }
 
 
 
+    /**
+     * Sets the array of orders with new elements
+     * @param orders an array list with strings containing orders
+     */
     public void setOrders(ArrayList<String> orders){
         this.orders = orders;
     }
 
+    /**
+     * Loads elements of the coffee view with selected elements.
+     */
     private void loadView(){
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.Coffee_Quantity, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -85,7 +187,56 @@ public class CoffeeView extends AppCompatActivity implements AdapterView.OnItemC
         sizeSpinner.setAdapter(adapterTwo);
         quantSpinner.setAdapter(adapter);
         currentOrders.setAdapter(adapterCoffee);
+        calculatorCoffee = new Coffee("Short");
+        subTotal.setText(round(calculatorCoffee.itemPrice())+ "");
+        total = Double.parseDouble(round(calculatorCoffee.itemPrice()));
+        tempPrice = total;
+        currSize = "Short";
+        total = EMPTY;
+        totalPrice.setText(total + "");
+
+
+        quantSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                double quantity = Integer.parseInt(parentView.getSelectedItem().toString());
+                tempPrice = tempPrice * ( quantity / currQuant);
+                currQuant = quantity;
+                subTotal.setText(round(tempPrice));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+
+            }
+
+        });
+
+        sizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                String size = parentView.getSelectedItem().toString();
+                double originalPrice = getSizePrice(currSize);
+                double newPrice = getSizePrice(size);
+                tempPrice = tempPrice * ( newPrice / originalPrice);
+                subTotal.setText(round(tempPrice));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
+
     }
+
+
+    /**
+     * Gets the selected addons from the given check boxes.
+     * @return an array list of strings with addons.
+     */
 
     private ArrayList<String> getAddons(){
         ArrayList<String> addList = new ArrayList<>();
@@ -114,6 +265,11 @@ public class CoffeeView extends AppCompatActivity implements AdapterView.OnItemC
         return addList;
     }
 
+    /**
+     * Adds a coffee item to the current order
+     * @param view a view object that we are currently looking at
+     */
+
     public void onAdd(View view){
         int quantityOfCoffee = Integer.parseInt(quantSpinner.getSelectedItem().toString());
         String size = sizeSpinner.getSelectedItem().toString();
@@ -124,16 +280,50 @@ public class CoffeeView extends AppCompatActivity implements AdapterView.OnItemC
             coffeeOrders.add(size + "(" + quantityOfCoffee + ").");
         else
             coffeeOrders.add(size + "(" + quantityOfCoffee + ")" + " Addons: " +  addOnCust.toString()+ ".");
+        pricesOfOrders.add(Double.parseDouble(round(orderedCoffee.itemPrice() * quantityOfCoffee)));
+        total += Double.parseDouble(round(orderedCoffee.itemPrice() * quantityOfCoffee));
+        calculatorCoffee = new Coffee(size);
+        ArrayList<String> addons = getAddons();
+        calculatorCoffee.addaddIn(addons);
+        tempPrice = Double.parseDouble(round(calculatorCoffee.itemPrice() * quantityOfCoffee));
+        totalPrice.setText(round(total) + "");
+        subTotal.setText(tempPrice + "");
         adapterCoffee.notifyDataSetChanged();
     }
+
+    /**
+     * Gets the price of each size.
+     * @param size the size of the coffee as a string
+     * @return the price per size as a double.
+     */
+    private double getSizePrice(String size){
+        double price = 0.0;
+        switch (size){
+            case "Short":
+                price = SHORT;
+                break;
+            case "Tall":
+                price = TALL;
+                break;
+            case "Grande":
+                price = GRANDE;
+                break;
+            case "Venti":
+                price = VENTI;
+                break;
+        }
+        return price;
+    }
+
+
     /**
      * This is the method you must implement when you write implements AdapterView.OnItemClickListener
      * in the class heading.
      * This is the event handler for the onItemClick event.
-     * @param adapterView
-     * @param view
-     * @param i
-     * @param l
+     * @param adapterView the adapter view we want
+     * @param view the current view object
+     * @param i the index of the element clicked
+     * @param l a long for internal android computation
      */
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -147,7 +337,7 @@ public class CoffeeView extends AppCompatActivity implements AdapterView.OnItemC
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(getApplicationContext(), "Item Removed!", Toast.LENGTH_LONG).show();
                 coffeeOrders.remove(adapterView.getAdapter().getItem(i).toString());
-                onRemove(item);
+                onRemove(item,i);
                 adapterCoffee.notifyDataSetChanged();
             }
         }).setNegativeButton("no", new DialogInterface.OnClickListener() {
@@ -159,27 +349,95 @@ public class CoffeeView extends AppCompatActivity implements AdapterView.OnItemC
         dialog.show();
     }
 
-    protected void onRemove(String item){
+    /**
+     * This method rounds a decimal number to two digits
+     * @param amount The value to round to two decimals
+     * @return The rounded double value
+     */
+    private String round(double amount){
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(2);
+        df.setMinimumFractionDigits(2);
+        String val = df.format(amount);
+        amount = Double.parseDouble(df.format(amount));
+        return val;
+    }
+
+    /**
+     * Removes the order from the interal array lsits of orders and prices
+     * @param item the item to be remove as  a string
+     * @param index the index from the adapter view.
+     */
+    protected void onRemove(String item,int index){
+        total -= pricesOfOrders.get(index);
+        totalPrice.setText(round(total));
+        pricesOfOrders.remove(index);
+    }
+
+
+
+
+
+
+
+
+    /**
+     * Adds the orders to all orders
+     * @param view a view object that we are looking at.
+     */
+    public void onAddOrder(View view){
+        Order coffeeOrderToAdd = new Order(AllOrders.getUniqueNumber());
         for(int i = 0; i < coffeeOrders.size(); i++){
-            if(coffeeOrders.get(i).equals(item)){
-                coffeeOrders.remove(i);
-            }
+            coffeeOrderToAdd.addItem(coffeeOrders.get(i));
+        }
+        AllOrders.runningTotal += total;
+        coffeeOrderToAdd.setPrice(total);
+        AllOrders.addOrder(coffeeOrderToAdd, (int) EMPTY);
+        reset();
+    }
+
+
+    /**
+     * unchecks all boxes on the ui.
+     */
+    private void uncheckBoxes(){
+
+        if(sweetCream.isChecked()){
+            sweetCream.toggle();
+        }
+
+        if(frenchVanilla.isChecked()){
+           frenchVanilla.toggle();
+
+        }
+
+        if(mochaBox.isChecked()){
+            mochaBox.toggle();
+        }
+
+        if(irishCream.isChecked()){
+            irishCream.toggle();
+        }
+
+        if(caramelBox.isChecked()){
+            caramelBox.toggle();
         }
 
     }
 
-
-    public void onAddOrder(View view){
-        int quantityOfCoffee = Integer.parseInt(quantSpinner.getSelectedItem().toString());
-        String size = sizeSpinner.getSelectedItem().toString();
-        Coffee orderedCoffee = new Coffee(size);
-        ArrayList<String> addOnCust = getAddons();
-        orderedCoffee.addaddIn(addOnCust);
-        if(addOnCust.size() == EMPTY)
-            coffeeOrders.add(size + "(" + quantityOfCoffee + ").");
-        else
-            coffeeOrders.add(size + "(" + quantityOfCoffee + ")" + " Addons: " +  addOnCust.toString()+ ".");
+    private void reset(){
+        quantSpinner.setSelection(0);
+        sizeSpinner.setSelection(0);
+        coffeeOrders.clear();
         adapterCoffee.notifyDataSetChanged();
+        pricesOfOrders.clear();
+        uncheckBoxes();
+        total = 0.0;
+        tempPrice = 0.0;
+        calculatorCoffee = new Coffee("Short");
+        tempPrice = calculatorCoffee.itemPrice();
+        totalPrice.setText(round(total));
+        subTotal.setText(round(tempPrice));
     }
 
 
