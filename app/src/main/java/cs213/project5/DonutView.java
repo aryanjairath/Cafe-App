@@ -65,9 +65,21 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
         });
 
     }
+
+
     public void setOrders(ArrayList<String> orders){
         this.orders = orders;
     }
+
+    /**
+     * This method sets a certain total for a donut order object
+     * @param tot A double representing the total value for
+     * a particular donut order
+     */
+    public static void setTotal(double tot) {
+        total = tot;
+    }
+
     public void doit(){
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.donuts, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -186,9 +198,11 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
         AllOrders.runningTotal += total;
         order.setPrice(AllOrders.runningTotal);
         AllOrders.addOrder(order, uniqueOrder);
-        orders = new ArrayList<>();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
         adapter.notifyDataSetChanged();
-        Toast.makeText(getApplicationContext(), "Order added to basket", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Order added to basket", Toast.LENGTH_SHORT).show();
     }
 
 }

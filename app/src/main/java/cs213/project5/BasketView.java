@@ -1,6 +1,7 @@
 package cs213.project5;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -24,7 +25,7 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
     private static double TAXRATE = .06625;
 
     private static int SIZEINDEX = 1;
-    private static int ZEROTOTAL = 1;
+    private static int ZERO = 0;
     private static int OFFSETINDEX = 1;
     private static final int OFFSETTWO = 2;
     private static final int OFFSETONE = 1;
@@ -40,9 +41,12 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
         alldonuts = new ArrayList<>();
         setContentView(R.layout.basket_layout);
         ArrayList<Order> orders = AllOrders.allOrderR();
-        ArrayList<String> order = orders.get(orders.size() - SIZEINDEX).getMenuItems();
-        for(int i  = 0; i < order.size(); i++)
-            alldonuts.add(order.get(i));
+        ArrayList<String> order;
+        if (orders.size() != ZERO) {
+            order = orders.get(orders.size() - SIZEINDEX).getMenuItems();
+            for (int i = 0; i < order.size(); i++)
+                alldonuts.add(order.get(i));
+        }
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, alldonuts );
         listview = findViewById(R.id.listvie);
         subtotal = findViewById(R.id.subtotal);
@@ -51,10 +55,8 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
         listview.setOnItemClickListener(this); //register the listener for an OnItemClick event.
         listview.setAdapter(adapter);
         ArrayList<Order> list = AllOrders.allOrderR();
-        if(list.size() == 0){
-            return;
-        }
-        recalculate();
+        if(list.size() != ZERO)
+            recalculate();
 
     }
 
@@ -125,7 +127,7 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
         //anonymous inner class to handle the onClick event of YES or NO.
         alert.setPositiveButton("yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getApplicationContext(), "YES", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Removed", Toast.LENGTH_SHORT).show();
                 alldonuts.remove(adapterView.getAdapter().getItem(i).toString());
                 onRemove(item);
                 System.out.println(item);
@@ -133,7 +135,8 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
             }
         }).setNegativeButton("no", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getApplicationContext(), "NO", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Item Not Removed",
+                        Toast.LENGTH_SHORT).show();
             }
         });
         AlertDialog dialog = alert.create();
@@ -143,7 +146,7 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
         ArrayList<Order> list = AllOrders.allOrderR();
         list.get(list.size() - SIZEINDEX).getMenuItems().remove(value);
         int quantity;
-        double amt = ZEROTOTAL;
+        double amt = ZERO;
         int quantity1 = Integer.parseInt(value.substring(value.indexOf('(')
                 + OFFSETINDEX, value.indexOf(')')));
         if (checkFlavor(value)) {
@@ -183,6 +186,8 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
         due.setText(round(taxAmt + list.get(list.size() - SIZEINDEX).
                 getPrice()) + "");
     }
+
+
     /**
      * Checks if a donut item has a particular flavor.
      * @param value a string containing the order in question.
@@ -194,4 +199,25 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
                 || value.contains("Grape") || value.contains("Passionfruit");
     }
 
+    public void onPlace(View view) {
+        if(AllOrders.allOrderR().size() == ZERO) {
+            Toast.makeText(getApplicationContext(), "No items" +
+                    " in basket: add some to place order", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+        Order order = new Order(AllOrders.getUniqueNumber());
+        for(int i = 0; i < alldonuts.size(); i++){
+            order.addItem(alldonuts.get(i));
+        }
+        AllOrders.addStoreOrder(order.getOrderNumber());
+        AllOrders.allOrder = new ArrayList<>();
+        AllOrders.runningTotal = ZERO;
+        DonutView.setTotal(ZERO);
+        CoffeeView.setTotal(ZERO);
+        AllOrders.incrementUnique();
+        Toast.makeText(getApplicationContext(), "Order placed", Toast.LENGTH_SHORT).show();
+    }
 }
