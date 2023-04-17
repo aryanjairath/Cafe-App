@@ -8,8 +8,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
     private Spinner spinnerquantity;
     private Spinner spinnerflavor;
     private RecyclerView recycleview;
+    private ImageView donutPic;
     public static double total;
     private Order order;
     private int uniqueOrder = 0;
@@ -42,6 +45,7 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
         spinnerquantity = findViewById(R.id.spinnerquantity);
         spinnerflavor = findViewById(R.id.spinnerflavor);
         recycleview = findViewById(R.id.recycleItems);
+        donutPic = findViewById(R.id.donutPics);
         total = 0;
         order = new Order(uniqueOrder);
         adapter = new ItemsAdapter(this, orders); //create the adapter
@@ -86,18 +90,21 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
             ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.yeast, android.R.layout.simple_spinner_item);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_item);
             Spinner spinnerLangauge2 = findViewById(R.id.spinnerflavor);
+            donutPic.setImageResource(R.drawable.yeast);
             spinnerLangauge2.setAdapter(adapter2);
         }
         if(type.equals("Cake Donut")){
             ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.cake, android.R.layout.simple_spinner_item);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_item);
             Spinner spinnerLangauge2 = findViewById(R.id.spinnerflavor);
+            donutPic.setImageResource(R.drawable.cake);
             spinnerLangauge2.setAdapter(adapter2);
         }
         if(type.equals("Donut Hole")){
             ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.holes, android.R.layout.simple_spinner_item);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_item);
             Spinner spinnerLangauge2 = findViewById(R.id.spinnerflavor);
+            donutPic.setImageResource(R.drawable.holes);
             spinnerLangauge2.setAdapter(adapter2);
         }
     }
@@ -181,6 +188,7 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
         AllOrders.addOrder(order, uniqueOrder);
         orders = new ArrayList<>();
         adapter.notifyDataSetChanged();
+        Toast.makeText(getApplicationContext(), "Order added to basket", Toast.LENGTH_LONG).show();
     }
 
 }
