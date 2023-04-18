@@ -59,7 +59,8 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
         doit();
         spinnerdrop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
                 changeList(parent.getItemAtPosition(position).toString());
             }
 
@@ -94,17 +95,20 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
      * types of donuts
      */
     public void doit(){
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.donuts, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.donuts, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         Spinner spinnerLangauge = findViewById(R.id.spinnerdrop);
         spinnerLangauge.setAdapter(adapter);
         //String text = spinnerdrop.getSelectedItem().toString();
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.yeast, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+                R.array.yeast, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         Spinner spinnerLangauge2 = findViewById(R.id.spinnerflavor);
         spinnerLangauge2.setAdapter(adapter2);
 
-        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this, R.array.quantity, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this,
+                R.array.quantity, android.R.layout.simple_spinner_item);
         adapter3.setDropDownViewResource(android.R.layout.simple_spinner_item);
         Spinner spinnerLangauge3 = findViewById(R.id.spinnerquantity);
         spinnerLangauge3.setAdapter(adapter3);
