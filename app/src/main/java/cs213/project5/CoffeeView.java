@@ -107,40 +107,40 @@ public class CoffeeView extends AppCompatActivity implements AdapterView.OnItemC
     private void setCheckBoxes(){
         sweetCream.setOnCheckedChangeListener(new
                                                       CompoundButton.OnCheckedChangeListener() {
-            /**
-             * Checks if the box for the addon has been changed
-             * @param compoundButton the compound button (checkbox) to change
-             * @param b a boolean for if the button is checked
-             */
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                boolean sweetPresent = compoundButton.isChecked();
-                if(sweetPresent){
-                    tempPrice +=  ADDONPRICE;
-                }else{
-                    tempPrice -= ADDONPRICE;
-                }
-                subTotal.setText(round(tempPrice));
-            }
-        });
+                                                          /**
+                                                           * Checks if the box for the addon has been changed
+                                                           * @param compoundButton the compound button (checkbox) to change
+                                                           * @param b a boolean for if the button is checked
+                                                           */
+                                                          @Override
+                                                          public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                                                              boolean sweetPresent = compoundButton.isChecked();
+                                                              if(sweetPresent){
+                                                                  tempPrice +=  ADDONPRICE;
+                                                              }else{
+                                                                  tempPrice -= ADDONPRICE;
+                                                              }
+                                                              subTotal.setText(round(tempPrice));
+                                                          }
+                                                      });
         irishCream.setOnCheckedChangeListener(
                 new CompoundButton.OnCheckedChangeListener() {
-            /**
-             * Checks if the box for the addon has been changed
-             * @param compoundButton the compound button (checkbox) to change
-             * @param b a boolean for if the button is checked
-             */
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                boolean sweetPresent = compoundButton.isChecked();
-                if(sweetPresent){
-                    tempPrice +=  ADDONPRICE;
-                }else{
-                    tempPrice -= ADDONPRICE;
-                }
-                subTotal.setText(round(tempPrice));
-            }
-        });
+                    /**
+                     * Checks if the box for the addon has been changed
+                     * @param compoundButton the compound button (checkbox) to change
+                     * @param b a boolean for if the button is checked
+                     */
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                        boolean sweetPresent = compoundButton.isChecked();
+                        if(sweetPresent){
+                            tempPrice +=  ADDONPRICE;
+                        }else{
+                            tempPrice -= ADDONPRICE;
+                        }
+                        subTotal.setText(round(tempPrice));
+                    }
+                });
         setVanilla();
     }
 
@@ -245,7 +245,7 @@ public class CoffeeView extends AppCompatActivity implements AdapterView.OnItemC
 
     /**
      *     Sets the size spinner's item selection listener
-      */
+     */
     public void setSpinnerOne(){
         /**
          * async method to handle the listner

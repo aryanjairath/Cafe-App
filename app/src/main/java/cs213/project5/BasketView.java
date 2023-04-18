@@ -49,7 +49,7 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
             for (int i = 0; i < order.size(); i++)
                 alldonuts.add(order.get(i));
         }
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, alldonuts );
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, alldonuts);
         listview = findViewById(R.id.listvie);
         subtotal = findViewById(R.id.subtotal);
         tax = findViewById(R.id.tax);
@@ -68,8 +68,7 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
         double total = 0;
         for(int i = 0; i < alldonuts.size(); i++) {
             String value = alldonuts.get(i);
-            if(hasDonut(value)) {
-                if (value.contains("Strawberry") || value.contains("Vanilla")
+                if (value.contains("Strawberry") || (value.contains("Vanilla") && !value.contains("French Vanilla"))
                         || value.contains("Blueberry") || value.contains("Apple")
                         || value.contains("Grape") || value.contains("Passionfruit")) {
                     quantity = Integer.parseInt(value.substring(value.length() -
@@ -77,21 +76,21 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
                     Yeast yeast = new Yeast("Any");
                     total += yeast.itemPrice() * quantity;
                 }
-                if (value.contains("French") || value.contains("Original")
+                else if ((value.contains("French") && !value.contains("French Vanilla")) || value.contains("Original")
                         || value.contains("Powder")) {
                     quantity = Integer.parseInt(value.substring(value.length() -
                             OFFSETTWO, value.length() - OFFSETONE));
                     DonutHole hole = new DonutHole("Any");
                     total += hole.itemPrice() * quantity;
                 }
-                if (value.contains("Birthday Cake") || value.contains("Chocolate Cake")
+                else if (value.contains("Birthday Cake") || value.contains("Chocolate Cake")
                         || value.contains("Cheese Cake")) {
                     quantity = Integer.parseInt(value.substring(value.length() -
                             OFFSETTWO, value.length() - OFFSETONE));
                     Cake cake = new Cake("Any");
                     total += cake.itemPrice() * quantity;
                 }
-            }else{
+            else{
                 String sizeOfCoffee = value.substring(0, value.indexOf("("));
                 quantity = Integer.parseInt(value.substring(
                         value.indexOf("(") + OFFSETINDEX, value.indexOf(")")));
@@ -168,24 +167,24 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
         int quantity1 = Integer.parseInt(value.substring(value.indexOf('(')
                 + OFFSETINDEX, value.indexOf(')')));
 
-        if(hasDonut(value)) {
-            if (checkFlavor(value)) {
+        if (value.contains("Strawberry") || (value.contains("Vanilla") && !value.contains("French Vanilla"))
+                || value.contains("Blueberry") || value.contains("Apple")
+                || value.contains("Grape") || value.contains("Passionfruit")) {
                 quantity = quantity1;
                 Yeast yeast = new Yeast("Any");
                 amt = Double.parseDouble(subtotal.getText() + "") - yeast.itemPrice() * quantity;
             }
-            if (value.contains("French") || value.contains("Original")
+            else if ((value.contains("French") && !value.contains("French Vanilla")) || value.contains("Original")
                     || value.contains("Powder")) {
                 quantity = quantity1;
                 DonutHole hole = new DonutHole("Any");
                 amt = Double.parseDouble(subtotal.getText() + "") - hole.itemPrice() * quantity;
             }
-            if (value.contains("Birthday Cake") || value.contains("Chocolate Cake")
+            else if (value.contains("Birthday Cake") || value.contains("Chocolate Cake")
                     || value.contains("Cheese Cake")) {
                 quantity = quantity1;
                 Cake cake = new Cake("Any");
                 amt = Double.parseDouble(subtotal.getText() + "") - cake.itemPrice() * quantity;
-            }
         }else{
             String sizeOfCoffee = value.substring(0, value.indexOf("("));
             quantity = Integer.parseInt(value.substring(
