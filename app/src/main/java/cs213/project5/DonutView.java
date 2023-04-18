@@ -36,7 +36,10 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
     private static final int OFFSETTWO = 2;
     private static final int OFFSETONE = 1;
 
-
+    /**
+     * Creates the view for the donut view
+     * @param savedInstanceState a bundle object with the state of the view.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +71,11 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
 
     }
 
-
+    /**
+     * Sets the orders for the donuts
+     * @param orders An array list containing donuts
+     * in String format.
+     */
     public void setOrders(ArrayList<String> orders){
         this.orders = orders;
     }
@@ -82,6 +89,10 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
         total = tot;
     }
 
+    /**
+     * This method sets the spinners for the quantities and
+     * types of donuts
+     */
     public void doit(){
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.donuts, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -99,23 +110,32 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
         spinnerLangauge3.setAdapter(adapter3);
 
     }
+
+    /**
+     * This method alters the spinner contents and pictures based
+     * on what type of donut is selected
+     * @param type A String representing the type of donut selected
+     */
     public void changeList(String type){
         if(type.equals("Yeast Donut")){
-            ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.yeast, android.R.layout.simple_spinner_item);
+            ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+                    R.array.yeast, android.R.layout.simple_spinner_item);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_item);
             Spinner spinnerLangauge2 = findViewById(R.id.spinnerflavor);
             donutPic.setImageResource(R.drawable.yeast);
             spinnerLangauge2.setAdapter(adapter2);
         }
         if(type.equals("Cake Donut")){
-            ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.cake, android.R.layout.simple_spinner_item);
+            ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+                    R.array.cake, android.R.layout.simple_spinner_item);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_item);
             Spinner spinnerLangauge2 = findViewById(R.id.spinnerflavor);
             donutPic.setImageResource(R.drawable.cake);
             spinnerLangauge2.setAdapter(adapter2);
         }
         if(type.equals("Donut Hole")){
-            ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.holes, android.R.layout.simple_spinner_item);
+            ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+                    R.array.holes, android.R.layout.simple_spinner_item);
             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_item);
             Spinner spinnerLangauge2 = findViewById(R.id.spinnerflavor);
             donutPic.setImageResource(R.drawable.holes);
@@ -123,11 +143,25 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
         }
     }
 
+    /**
+     * This is the method you must implement when you write implements
+     * AdapterView.OnItemClickListener in the class heading.
+     * This is the event handler for the onItemClick event.
+     * @param adapterView The adapter for the list view
+     * @param view The view object being dealt with
+     * @param i The index of the item
+     * @param id A long value
+     */
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long id) {
 
     }
 
+    /**
+     * This method performs actions of adding individual
+     * donuts when corresponding button in view is pressed
+     * @param view The view that is being dealt with
+     */
     public void onAdd(View view) {
         String addDonut = spinnerflavor.getSelectedItem().toString();
         addDonut += "("+spinnerquantity.getSelectedItem().toString()+")";
@@ -164,11 +198,19 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
         total = Double.parseDouble(df.format(total));
     }
 
+    /**
+     * Sets the current price onto the text view
+     */
     public static void putAmount(){
         round();
         totalDonut.setText(total+"");
     }
 
+    /**
+     * This method performs actions of adding all currently added
+     * donuts when corresponding button in view is pressed
+     * @param view The view that is being dealt with
+     */
     public void onAddOrder(View view) {
         for (int i = 0; i < orders.size(); i++) {
             String type = orders.get(i);
@@ -181,7 +223,7 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
         startActivity(intent);
         finish();
         adapter.notifyDataSetChanged();
-        Toast.makeText(getApplicationContext(), "Order added to basket", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Order added to basket",
+                Toast.LENGTH_SHORT).show();
     }
-
 }

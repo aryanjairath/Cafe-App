@@ -15,8 +15,15 @@ import android.widget.Toast;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+/**
+ * This class is the basket view where all items
+ * in the shopping bag can be viewed and edited
+ * @author Aryan Jairath, Anis Chihoub
+ */
 public class BasketView extends AppCompatActivity implements AdapterView.OnItemClickListener{
     private static final int ZEROADDONS = 0;
+    private static final int TWODIGITS = 2;
+
     private static final int ONEADDON = 1;
     private ListView listview;
     private ArrayAdapter<String> adapter;
@@ -49,7 +56,8 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
             for (int i = 0; i < order.size(); i++)
                 alldonuts.add(order.get(i));
         }
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, alldonuts);
+        adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, alldonuts);
         listview = findViewById(R.id.listvie);
         subtotal = findViewById(R.id.subtotal);
         tax = findViewById(R.id.tax);
@@ -59,25 +67,28 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
         ArrayList<Order> list = AllOrders.allOrderR();
         if(list.size() != ZERO)
             recalculate();
-
     }
 
-
+    /**
+     * This method recalculates the pricing for the
+     * basket after getting the items
+     */
     private void recalculate() {
         int quantity;
         double total = 0;
         for(int i = 0; i < alldonuts.size(); i++) {
             String value = alldonuts.get(i);
-                if (value.contains("Strawberry") || (value.contains("Vanilla") && !value.contains("French Vanilla"))
-                        || value.contains("Blueberry") || value.contains("Apple")
-                        || value.contains("Grape") || value.contains("Passionfruit")) {
+                if (value.contains("Strawberry") || (value.contains("Vanilla") &&
+                        !value.contains("French Vanilla")) || value.contains("Blueberry") ||
+                        value.contains("Apple") || value.contains("Grape") ||
+                        value.contains("Passionfruit")) {
                     quantity = Integer.parseInt(value.substring(value.length() -
                             OFFSETTWO, value.length() - OFFSETONE));
                     Yeast yeast = new Yeast("Any");
                     total += yeast.itemPrice() * quantity;
                 }
-                else if ((value.contains("French") && !value.contains("French Vanilla")) || value.contains("Original")
-                        || value.contains("Powder")) {
+                else if ((value.contains("French") && !value.contains("French Vanilla"))
+                        || value.contains("Original") || value.contains("Powder")) {
                     quantity = Integer.parseInt(value.substring(value.length() -
                             OFFSETTWO, value.length() - OFFSETONE));
                     DonutHole hole = new DonutHole("Any");
@@ -90,8 +101,8 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
                     Cake cake = new Cake("Any");
                     total += cake.itemPrice() * quantity;
                 }
-            else{
-                String sizeOfCoffee = value.substring(0, value.indexOf("("));
+                else{
+                String sizeOfCoffee = value.substring(ZERO, value.indexOf("("));
                 quantity = Integer.parseInt(value.substring(
                         value.indexOf("(") + OFFSETINDEX, value.indexOf(")")));
                 Coffee tempCoffee = getCoffeeObject(value, sizeOfCoffee);
@@ -112,21 +123,21 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
      */
     private String round(double amount){
         DecimalFormat df = new DecimalFormat();
-        df.setMaximumFractionDigits(2);
-        df.setMinimumFractionDigits(2);
+        df.setMaximumFractionDigits(TWODIGITS);
+        df.setMinimumFractionDigits(TWODIGITS);
         String val = df.format(amount);
         amount = Double.parseDouble(df.format(amount));
         return val;
     }
 
     /**
-     * This is the method you must implement when you write implements AdapterView.OnItemClickListener
-     * in the class heading.
+     * This is the method you must implement when you write implements
+     * AdapterView.OnItemClickListener in the class heading.
      * This is the event handler for the onItemClick event.
-     * @param adapterView
-     * @param view
-     * @param i
-     * @param l
+     * @param adapterView The adapter for the list view
+     * @param view The view object being dealt with
+     * @param i The index of the item
+     * @param l A long value
      */
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -134,7 +145,6 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
         alert.setTitle("Remove the selected item?");
         alert.setMessage(adapterView.getAdapter().getItem(i).toString());
         String item = adapterView.getAdapter().getItem(i).toString();
-        //anonymous inner class to handle the onClick event of YES or NO.
         alert.setPositiveButton("yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(getApplicationContext(), "Removed", Toast.LENGTH_SHORT).show();
@@ -152,6 +162,14 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
         AlertDialog dialog = alert.create();
         dialog.show();
     }
+
+    /**
+     * This method checks if the item in question is
+     * a donut or not
+     * @param value The item in String format
+     * @return A boolean representing if the item in question
+     * is a donut
+     */
     private boolean hasDonut(String value){
         return checkFlavor(value)  || value.contains("French") || value.contains("Original")
                 || value.contains("Powder") || value.contains("Birthday Cake") ||
@@ -159,6 +177,11 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
                 || value.contains("Cheese Cake");
     }
 
+    /**
+     * Removes the selected item from the list view and
+     * changes the pricing accordingly
+     * @param value The item to remove from the basket
+     */
     protected void onRemove(String value){
         ArrayList<Order> list = AllOrders.allOrderR();
         list.get(list.size() - SIZEINDEX).getMenuItems().remove(value);
@@ -166,27 +189,31 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
         double amt = ZERO;
         int quantity1 = Integer.parseInt(value.substring(value.indexOf('(')
                 + OFFSETINDEX, value.indexOf(')')));
-
-        if (value.contains("Strawberry") || (value.contains("Vanilla") && !value.contains("French Vanilla"))
+        if (value.contains("Strawberry") || (value.contains("Vanilla") &&
+                !value.contains("French Vanilla"))
                 || value.contains("Blueberry") || value.contains("Apple")
                 || value.contains("Grape") || value.contains("Passionfruit")) {
                 quantity = quantity1;
                 Yeast yeast = new Yeast("Any");
-                amt = Double.parseDouble(subtotal.getText() + "") - yeast.itemPrice() * quantity;
+                amt = Double.parseDouble(subtotal.getText() + "") -
+                        yeast.itemPrice() * quantity;
             }
-            else if ((value.contains("French") && !value.contains("French Vanilla")) || value.contains("Original")
-                    || value.contains("Powder")) {
+            else if ((value.contains("French") && !value.contains("French Vanilla"))
+                || value.contains("Original")
+                || value.contains("Powder")) {
                 quantity = quantity1;
                 DonutHole hole = new DonutHole("Any");
-                amt = Double.parseDouble(subtotal.getText() + "") - hole.itemPrice() * quantity;
+                amt = Double.parseDouble(subtotal.getText() + "") -
+                        hole.itemPrice() * quantity;
             }
             else if (value.contains("Birthday Cake") || value.contains("Chocolate Cake")
                     || value.contains("Cheese Cake")) {
                 quantity = quantity1;
                 Cake cake = new Cake("Any");
-                amt = Double.parseDouble(subtotal.getText() + "") - cake.itemPrice() * quantity;
+                amt = Double.parseDouble(subtotal.getText() + "") -
+                        cake.itemPrice() * quantity;
         }else{
-            String sizeOfCoffee = value.substring(0, value.indexOf("("));
+            String sizeOfCoffee = value.substring(ZERO, value.indexOf("("));
             quantity = Integer.parseInt(value.substring(
                     value.indexOf("(") + OFFSETINDEX, value.indexOf(")")));
             Coffee tempCoffee = getCoffeeObject(value, sizeOfCoffee);
@@ -206,7 +233,7 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
     private Coffee getCoffeeObject(String value, String sizeOfCoffee){
         int numberOfAddons = numberOfAddons(value);
         Coffee tempCoffee = new Coffee(sizeOfCoffee);
-        ArrayList<String> addons = new ArrayList<String>();
+        ArrayList<String> addons = new ArrayList<>();
         for(int i = 0; i < numberOfAddons; i++){
             addons.add("");
         }
@@ -236,6 +263,7 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
         due.setText(round(taxAmt + list.get(list.size() - SIZEINDEX).
                 getPrice()) + "");
     }
+
     /**
      * Checks if a donut item has a particular flavor.
      * @param value a string containing the order in question.
@@ -247,6 +275,10 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
                 || value.contains("Grape") || value.contains("Passionfruit");
     }
 
+    /**
+     * Perform certain actions when place order is pressed
+     * @param view The view object being dealt with
+     */
     public void onPlace(View view) {
         if(AllOrders.allOrderR().size() == ZERO) {
             Toast.makeText(getApplicationContext(), "No items" +

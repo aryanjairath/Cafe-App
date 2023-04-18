@@ -16,6 +16,7 @@ import android.widget.CompoundButton;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+
 public class CoffeeView extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
 
@@ -72,8 +73,9 @@ public class CoffeeView extends AppCompatActivity implements AdapterView.OnItemC
     private double currQuant;
 
     private String currSize;
+
     /**
-     * Creates the view for the application
+     * Creates the view for the coffee view
      * @param savedInstanceState a bundle object with the state of the view.
      */
     @Override
@@ -496,7 +498,6 @@ public class CoffeeView extends AppCompatActivity implements AdapterView.OnItemC
         Toast.makeText(getApplicationContext(),
                 "Order added to basket", Toast.LENGTH_SHORT).show();
     }
-
 
 
     /**
