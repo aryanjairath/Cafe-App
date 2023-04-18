@@ -16,6 +16,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class BasketView extends AppCompatActivity implements AdapterView.OnItemClickListener{
+    private static final int ZEROADDONS = 0;
+    private static final int ONEADDON = 1;
     private ListView listview;
     private ArrayAdapter<String> adapter;
     private ArrayList<String> alldonuts;
@@ -23,7 +25,6 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
     private TextView tax;
     private TextView due;
     private static double TAXRATE = .06625;
-    private static double total = 0;
 
     private static int SIZEINDEX = 1;
     private static int ZERO = 0;
@@ -61,32 +62,41 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
 
     }
 
+
     private void recalculate() {
         int quantity;
-        total = 0;
-        for(int i = 0; i <alldonuts.size(); i++) {
+        double total = 0;
+        for(int i = 0; i < alldonuts.size(); i++) {
             String value = alldonuts.get(i);
-            if (value.contains("Strawberry") || value.contains("Vanilla")
-                    || value.contains("Blueberry") || value.contains("Apple")
-                    || value.contains("Grape") || value.contains("Passionfruit")) {
-                quantity = Integer.parseInt(value.substring(value.length() -
-                        OFFSETTWO, value.length() - OFFSETONE));
-                Yeast yeast = new Yeast("Any");
-                total += yeast.itemPrice() * quantity;
-            }
-            if (value.contains("French") || value.contains("Original")
-                    || value.contains("Powder")) {
-                quantity = Integer.parseInt(value.substring(value.length() -
-                        OFFSETTWO, value.length() - OFFSETONE));
-                DonutHole hole = new DonutHole("Any");
-                total += hole.itemPrice() * quantity;
-            }
-            if (value.contains("Birthday Cake") || value.contains("Chocolate Cake")
-                    || value.contains("Cheese Cake")) {
-                quantity = Integer.parseInt(value.substring(value.length() -
-                        OFFSETTWO, value.length() - OFFSETONE));
-                Cake cake = new Cake("Any");
-                total += cake.itemPrice() * quantity;
+            if(hasDonut(value)) {
+                if (value.contains("Strawberry") || value.contains("Vanilla")
+                        || value.contains("Blueberry") || value.contains("Apple")
+                        || value.contains("Grape") || value.contains("Passionfruit")) {
+                    quantity = Integer.parseInt(value.substring(value.length() -
+                            OFFSETTWO, value.length() - OFFSETONE));
+                    Yeast yeast = new Yeast("Any");
+                    total += yeast.itemPrice() * quantity;
+                }
+                if (value.contains("French") || value.contains("Original")
+                        || value.contains("Powder")) {
+                    quantity = Integer.parseInt(value.substring(value.length() -
+                            OFFSETTWO, value.length() - OFFSETONE));
+                    DonutHole hole = new DonutHole("Any");
+                    total += hole.itemPrice() * quantity;
+                }
+                if (value.contains("Birthday Cake") || value.contains("Chocolate Cake")
+                        || value.contains("Cheese Cake")) {
+                    quantity = Integer.parseInt(value.substring(value.length() -
+                            OFFSETTWO, value.length() - OFFSETONE));
+                    Cake cake = new Cake("Any");
+                    total += cake.itemPrice() * quantity;
+                }
+            }else{
+                String sizeOfCoffee = value.substring(0, value.indexOf("("));
+                quantity = Integer.parseInt(value.substring(
+                        value.indexOf("(") + OFFSETINDEX, value.indexOf(")")));
+                Coffee tempCoffee = getCoffeeObject(value, sizeOfCoffee);
+                total += tempCoffee.itemPrice() * quantity;
             }
         }
         subtotal.setText(round(total)+"");
@@ -108,54 +118,6 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
         String val = df.format(amount);
         amount = Double.parseDouble(df.format(amount));
         return val;
-    }
-
-    /**
-     * Checks if a coffee item has a particular value.
-     * @param value a string containing the order in question.
-     * @return a boolean if the coffee order has any of the following values.
-     */
-    public boolean checkCoffee(String value){
-        return value.contains("Short") || value.contains("Tall") ||
-                value.contains("Grande") || value.contains("Venti");
-    }
-
-    /**
-     * Returns a coffee object, given the selected size and the order string
-     * @param value the order string to extract information from.
-     * @param sizeOfCoffee a string containing the coffee size
-     * @return a coffee object with the given parameters.
-     */
-    private Coffee getCoffeeObject(String value, String sizeOfCoffee){
-        int numberOfAddons = numberOfAddons(value);
-        Coffee tempCoffee = new Coffee(sizeOfCoffee);
-        ArrayList<String> addons = new ArrayList<String>();
-        for(int i = 0; i < numberOfAddons; i++){
-            addons.add("");
-        }
-        tempCoffee.addaddIn(addons);
-        return tempCoffee;
-    }
-
-
-    /**
-     * Counts the number of addons in a coffee order.
-     * @param value a string containing the coffee order
-     * @return a integer showcasing the number of coffee add ons.
-     */
-
-    public int numberOfAddons(String value){
-        int numberOfAddons = 0;
-        if(!value.contains("["))
-            numberOfAddons = 0;
-        else{
-            numberOfAddons += 1;
-            for(int i = 0 ; i < value.length(); i++){
-                if(value.charAt(i) == ',')
-                    numberOfAddons++;
-            }
-        }
-        return numberOfAddons;
     }
 
     /**
@@ -191,41 +153,82 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
         AlertDialog dialog = alert.create();
         dialog.show();
     }
+    private boolean hasDonut(String value){
+        return checkFlavor(value)  || value.contains("French") || value.contains("Original")
+                || value.contains("Powder") || value.contains("Birthday Cake") ||
+                value.contains("Chocolate Cake")
+                || value.contains("Cheese Cake");
+    }
+
     protected void onRemove(String value){
         ArrayList<Order> list = AllOrders.allOrderR();
         list.get(list.size() - SIZEINDEX).getMenuItems().remove(value);
         int quantity;
+        double amt = ZERO;
         int quantity1 = Integer.parseInt(value.substring(value.indexOf('(')
                 + OFFSETINDEX, value.indexOf(')')));
-        if (checkFlavor(value)) {
-            quantity = quantity1;
-            Yeast yeast = new Yeast("Any");
-            total = Double.parseDouble(subtotal.getText()+"") - yeast.itemPrice() * quantity;
-        }
-        if (value.contains("French") || value.contains("Original")
-                || value.contains("Powder")) {
-            quantity = quantity1;
-            DonutHole hole = new DonutHole("Any");
-            total = Double.parseDouble(subtotal.getText()+"") - hole.itemPrice() * quantity;
-        }
-        if (value.contains("Birthday Cake") || value.contains("Chocolate Cake")
-                || value.contains("Cheese Cake")) {
-            quantity = quantity1;
-            Cake cake = new Cake("Any");
-            total = Double.parseDouble(subtotal.getText()+"") - cake.itemPrice() * quantity;
-        }
-        if(checkCoffee(value)){
+
+        if(hasDonut(value)) {
+            if (checkFlavor(value)) {
+                quantity = quantity1;
+                Yeast yeast = new Yeast("Any");
+                amt = Double.parseDouble(subtotal.getText() + "") - yeast.itemPrice() * quantity;
+            }
+            if (value.contains("French") || value.contains("Original")
+                    || value.contains("Powder")) {
+                quantity = quantity1;
+                DonutHole hole = new DonutHole("Any");
+                amt = Double.parseDouble(subtotal.getText() + "") - hole.itemPrice() * quantity;
+            }
+            if (value.contains("Birthday Cake") || value.contains("Chocolate Cake")
+                    || value.contains("Cheese Cake")) {
+                quantity = quantity1;
+                Cake cake = new Cake("Any");
+                amt = Double.parseDouble(subtotal.getText() + "") - cake.itemPrice() * quantity;
+            }
+        }else{
             String sizeOfCoffee = value.substring(0, value.indexOf("("));
             quantity = Integer.parseInt(value.substring(
                     value.indexOf("(") + OFFSETINDEX, value.indexOf(")")));
             Coffee tempCoffee = getCoffeeObject(value, sizeOfCoffee);
-            total = Double.parseDouble(subtotal.getText() + "") -
+            amt = Double.parseDouble(subtotal.getText() + "") -
                     tempCoffee.itemPrice() * quantity;
         }
-        AllOrders.allOrder.get(list.size() - SIZEINDEX).setPrice(total);
+        AllOrders.allOrder.get(list.size()-SIZEINDEX).setPrice(amt);
         revealPricing();
-
     }
+
+    /**
+     * Returns a coffee object, given the selected size and the order string
+     * @param value the order string to extract information from.
+     * @param sizeOfCoffee a string containing the coffee size
+     * @return a coffee object with the given parameters.
+     */
+    private Coffee getCoffeeObject(String value, String sizeOfCoffee){
+        int numberOfAddons = numberOfAddons(value);
+        Coffee tempCoffee = new Coffee(sizeOfCoffee);
+        ArrayList<String> addons = new ArrayList<String>();
+        for(int i = 0; i < numberOfAddons; i++){
+            addons.add("");
+        }
+        tempCoffee.addaddIn(addons);
+        return tempCoffee;
+    }
+
+    public int numberOfAddons(String value){
+        int numberOfAddons = ZEROADDONS;
+        if(!value.contains("["))
+            numberOfAddons = ZEROADDONS;
+        else{
+            numberOfAddons += ONEADDON;
+            for(int i = 0 ; i < value.length(); i++){
+                if(value.charAt(i) == ',')
+                    numberOfAddons++;
+            }
+        }
+        return numberOfAddons;
+    }
+
     private void revealPricing(){
         ArrayList<Order> list = AllOrders.allOrderR();
         subtotal.setText(round(list.get(list.size() - SIZEINDEX).getPrice()));
