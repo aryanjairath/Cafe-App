@@ -21,6 +21,8 @@ public class ItemsAdapter extends
     private ArrayList<String> mContacts;
     private Context context;
     public static String removeVal;
+    private static final int OFFSETONE = 1;
+    private static final int OFFSETTWO = 2;
 
     // Pass in the contact array into the constructor
     public ItemsAdapter(Context context, ArrayList<String> contacts) {
@@ -86,10 +88,38 @@ public class ItemsAdapter extends
                     AlertDialog.Builder alert = new AlertDialog.Builder(itemView.getContext());
                     alert.setTitle("Remove from order?");
                     alert.setMessage(nameTextView.getText().toString());
+                    String value = nameTextView.getText().toString();
                     //handle the "YES" click
                     alert.setPositiveButton("yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-
+                            DonutView.orders.remove(nameTextView.getText().toString());
+                            DonutView.adapter.notifyDataSetChanged();
+                            int quantity;
+                            if(value.contains("Strawberry") || value.contains("Vanilla")
+                                    || value.contains("Blueberry") || value.contains("Apple")
+                                    || value.contains("Grape") || value.contains("Passionfruit")){
+                                quantity = Integer.parseInt(value.substring(value.length() -
+                                        OFFSETTWO,value.length() - OFFSETONE));
+                                Yeast yeast = new Yeast("Any");
+                                Toast.makeText(itemView.getContext(),
+                                        nameTextView.getText().toString() + " sucessfully removed.", Toast.LENGTH_LONG).show();
+                                DonutView.total -= yeast.itemPrice() * quantity;
+                            }
+                            if(value.contains("French") || value.contains("Original")
+                                    || value.contains("Powder")){
+                                quantity = Integer.parseInt(value.substring(value.length() -
+                                        OFFSETTWO,value.length() - OFFSETONE));
+                                DonutHole hole = new DonutHole("Any");
+                                DonutView.total -= hole.itemPrice() * quantity;
+                            }
+                            if(value.contains("Birthday Cake") || value.contains("Chocolate Cake")
+                                    || value.contains("Cheese Cake")){
+                                quantity = Integer.parseInt(value.substring(value.length() -
+                                        OFFSETTWO,value.length() - OFFSETONE));
+                                Cake cake = new Cake("Any");
+                                DonutView.total -= cake.itemPrice() * quantity;
+                            }
+                            DonutView.putAmount();
                             Toast.makeText(itemView.getContext(),
                                     nameTextView.getText().toString() + " sucessfully removed.", Toast.LENGTH_LONG).show();
                         }

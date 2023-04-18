@@ -1,5 +1,7 @@
 package cs213.project5;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,8 +21,8 @@ import java.util.ArrayList;
 //Testing app for android
 public class DonutView extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
-    private static ArrayList<String> orders = new ArrayList<>();
-    private TextView totalDonut;
+    public static ArrayList<String> orders = new ArrayList<>();
+    private static TextView totalDonut;
     private Spinner spinnerdrop;
     private Spinner spinnerquantity;
     private Spinner spinnerflavor;
@@ -29,7 +31,7 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
     public static double total;
     private Order order;
     private int uniqueOrder = 0;
-    private ItemsAdapter adapter;
+    public static ItemsAdapter adapter;
     private static final int TWODIGITS = 2;
     private static final int OFFSETTWO = 2;
     private static final int OFFSETONE = 1;
@@ -122,7 +124,7 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long id) {
 
     }
 
@@ -150,44 +152,21 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
     }
 
 
-    public void onRemove(String value) {
-        orders.remove(value);
-        adapter.notifyDataSetChanged();
-        int quantity;
-        if(value.contains("Strawberry") || value.contains("Vanilla")
-                || value.contains("Blueberry") || value.contains("Apple")
-                || value.contains("Grape") || value.contains("Passionfruit")){
-            quantity = Integer.parseInt(value.substring(value.length() -
-                    OFFSETTWO,value.length() - OFFSETONE));
-            Yeast yeast = new Yeast("Any");
-            total -= yeast.itemPrice() * quantity;
-        }
-        if(value.contains("French") || value.contains("Original")
-                || value.contains("Powder")){
-            quantity = Integer.parseInt(value.substring(value.length() -
-                    OFFSETTWO,value.length() - OFFSETONE));
-            DonutHole hole = new DonutHole("Any");
-            total -= hole.itemPrice() * quantity;
-        }
-        if(value.contains("Birthday Cake") || value.contains("Chocolate Cake")
-                || value.contains("Cheese Cake")){
-            quantity = Integer.parseInt(value.substring(value.length() -
-                    OFFSETTWO,value.length() - OFFSETONE));
-            Cake cake = new Cake("Any");
-            total -= cake.itemPrice() * quantity;
-        }
-        //round();
-    }
 
     /**
      * Rounds a given decimal to two decimal places
      */
-    private void round(){
+    private static void round(){
         DecimalFormat df = new DecimalFormat();
         df.setMinimumFractionDigits(TWODIGITS);
         df.setMaximumFractionDigits(TWODIGITS);
         totalDonut.setText(df.format(total));
         total = Double.parseDouble(df.format(total));
+    }
+
+    public static void putAmount(){
+        round();
+        totalDonut.setText(total+"");
     }
 
     public void onAddOrder(View view) {

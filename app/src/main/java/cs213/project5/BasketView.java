@@ -63,6 +63,7 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
 
     private void recalculate() {
         int quantity;
+        total = 0;
         for(int i = 0; i <alldonuts.size(); i++) {
             String value = alldonuts.get(i);
             if (value.contains("Strawberry") || value.contains("Vanilla")
