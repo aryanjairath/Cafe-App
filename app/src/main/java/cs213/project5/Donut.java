@@ -8,7 +8,7 @@ package cs213.project5;
  * @author Aryan Jairath, Anis Chihoub
  */
 public class Donut extends MenuItem{
-    String flavor;
+    private String flavor;
     private static final int NOPRICE = 0;
 
     /**

@@ -4,129 +4,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DonutActivity">
-
-    <TextView
-        android:id="@+id/t1"
-        android:layout_width="187dp"
-        android:layout_height="72dp"
-        android:layout_marginTop="36dp"
-        android:background="#f9e79f"
-        android:gravity="center"
-        android:text = "Order a Donut"
-        android:textColor="#c0392b"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
-        app:layout_constraintVertical_bias="0.9"
-
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <TextView
-        android:id="@+id/t2"
-        android:layout_width="187dp"
-        android:layout_height="72dp"
-        android:layout_marginTop="36dp"
-        android:background="#f9e79f"
-        android:gravity="center"
-        android:text= "Order a Coffee"
-        android:textColor="#c0392b"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.96"
-        app:layout_constraintVertical_bias="-.002"
-
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <TextView
-        android:id="@+id/t3"
-        android:layout_width="187dp"
-        android:layout_height="72dp"
-        android:layout_marginTop="340dp"
-        android:background="#f9e79f"
-        android:gravity="center"
-        android:text= "Check store orders"
-        android:textColor="#c0392b"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.96"
-        app:layout_constraintVertical_bias="-.002"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <TextView
-        android:id="@+id/t4"
-        android:layout_width="187dp"
-        android:layout_height="72dp"
-        android:layout_marginTop="340dp"
-        android:background="#f9e79f"
-        android:gravity="center"
-        android:text= "Check your bag"
-        android:textColor="#c0392b"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".MainActivity">
 
     <ImageButton
         android:id="@+id/donutButton"
-        android:layout_width="202dp"
-        android:layout_height="185dp"
-        android:layout_marginTop="52dp"
+        android:layout_width="225dp"
+        android:layout_height="199dp"
+        android:layout_marginBottom="400dp"
         android:onClick="DonutActivity"
         android:scaleType="fitXY"
         android:src="@drawable/donut"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.00"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/t1"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.419"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <ImageButton
         android:id="@+id/coffeeButton"
-        android:layout_width="202dp"
-        android:layout_height="185dp"
-        android:layout_marginTop="52dp"
+        android:layout_width="222dp"
+        android:layout_height="203dp"
+        android:layout_marginBottom="200dp"
+        android:onClick="CoffeeActivity"
         android:scaleType="fitXY"
         android:src="@drawable/coffee"
-        android:onClick="CoffeeActivity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/t1"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.412"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <ImageButton
         android:id="@+id/bagButton"
         android:layout_width="202dp"
         android:layout_height="185dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="BasketActivity"
         android:scaleType="fitXY"
         android:src="@drawable/shoppingbag"
-        android:onClick="BasketActivity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/t1"
-        app:layout_constraintVertical_bias="0.93" />
+        app:layout_constraintStart_toStartOf="parent" />
+
     <ImageButton
         android:id="@+id/storeButton"
         android:layout_width="202dp"
         android:layout_height="185dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="OrderingActivity"
         android:scaleType="fitXY"
         android:src="@drawable/clipboard"
-        android:onClick="OrderingActivity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/t1"
-        app:layout_constraintVertical_bias="0.93" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
