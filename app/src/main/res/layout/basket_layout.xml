@@ -8,23 +8,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ordering Basket"
-            android:textSize="35sp"
-            android:textColor="#000000"
             android:gravity="center"
+            android:text="@string/orderbasket"
+            android:textColor="#000000"
+            android:textSize="35sp"
             app:fontFamily="casual" />
 
         <ListView
             android:id="@+id/listvie"
             android:layout_width="409dp"
-            android:layout_height="332dp"
-            tools:ignore="MissingConstraints">
+            android:layout_height="427dp">
 
         </ListView>
 
@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="sub-total" />
+                android:text="@string/subtotal" />
 
             <TextView
                 android:id="@+id/subtotal"
@@ -57,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="salestax" />
+                android:text="@string/salestax" />
 
             <TextView
                 android:id="@+id/tax"
@@ -77,7 +77,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="total due" />
+                android:text="@string/total" />
 
             <TextView
                 android:id="@+id/totalamount"
@@ -88,13 +88,19 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/submitOrder"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_weight="1"
-            android:onClick="onPlace"
-            android:text="Place Order" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/submitOrder"
+                android:layout_width="399dp"
+                android:layout_height="73dp"
+                android:layout_weight="1"
+                android:onClick="onPlace"
+                android:text="@string/placeorder" />
+        </LinearLayout>
 
     </LinearLayout>
 

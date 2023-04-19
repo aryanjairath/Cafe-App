@@ -1,6 +1,22 @@
 <resources>
     <string name="app_name">CS213_Project5</string>
     <string name="coffee_name">Submit Coffee Order</string>
+    <string name="coffeepane">Ordering Coffee Pane</string>
+    <string name="submitcoffee">Submit Coffee Order</string>
+    <string name="orderbasket">Ordering Basket</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="salestax">Sales Tax</string>
+    <string name="total">Total Due</string>
+    <string name="placeorder">Place Your Order</string>
+    <string name="removedonut">Remove</string>
+    <string name="adddonut">Add</string>
+    <string name="donutorder">Add to Order</string>
+    <string name="donutquantity">Quantity</string>
+    <string name="donutheader">Order a Donut</string>
+    <string name="donuttotal">Total $</string>
+    <string name="removedash">-</string>
+    <string name="storeorderheader">Store Orders</string>
+
     <string name="DonutDropDown">Select a Donut</string>
     <string-array name="donuts">
         <item>Yeast Donut</item>

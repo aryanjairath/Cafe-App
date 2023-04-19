@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Order a Donut"
+            android:text="@string/donutheader"
             android:textColor="#000000"
             android:textSize="30sp"
             app:fontFamily="casual" />
@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
-                android:text="Quantiy: " />
+                android:text="@string/donutquantity" />
 
             <Spinner
                 android:id="@+id/spinnerquantity"
@@ -74,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Add"
+                android:text="@string/adddonut"
                 android:onClick="onAdd" />
 
             <Button
@@ -82,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Remove" />
+                android:text="@string/removedonut" />
 
         </LinearLayout>
 
@@ -101,7 +101,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Total $"
+                android:text="@string/donuttotal"
                 android:textSize="20sp"
                 android:paddingLeft = "9dp"/>
 
@@ -116,7 +116,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Add To Order"
+                android:text="@string/donutorder"
                 android:onClick="onAddOrder" />
         </LinearLayout>
     </LinearLayout>
