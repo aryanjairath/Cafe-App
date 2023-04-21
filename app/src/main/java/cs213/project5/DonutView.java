@@ -3,6 +3,8 @@ package cs213.project5;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,9 +35,15 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
     private Order order;
     private int uniqueOrder = 0;
     public static ItemsAdapter adapter;
+    private LinearLayout constraintLayout;
+
     private static final int TWODIGITS = 2;
     private static final int OFFSETTWO = 2;
     private static final int OFFSETONE = 1;
+    private static int RED = 245;
+    private static int GREEN = 245;
+    private static int BLUE = 220;
+
 
     /**
      * Creates the view for the donut view
@@ -56,6 +65,8 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
         adapter = new ItemsAdapter(this, orders); //create the adapter
         recycleview.setAdapter(adapter); //bind the list of items to the RecyclerView
         recycleview.setLayoutManager(new LinearLayoutManager(this));
+        constraintLayout = findViewById(R.id.relativelay);
+        constraintLayout.setBackgroundColor(Color.rgb(RED, GREEN, BLUE));
         doit();
         spinnerdrop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

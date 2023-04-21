@@ -2,12 +2,14 @@ package cs213.project5;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -54,6 +56,11 @@ public class CoffeeView extends AppCompatActivity implements AdapterView.OnItemC
 
     private static int DECIMALS = 2;
 
+    private static int RED = 196;
+    private static int GREEN = 164;
+    private static int BLUE = 132;
+
+
     private static int ONE = 1;
 
     private ArrayAdapter<String> adapterCoffee;
@@ -73,6 +80,9 @@ public class CoffeeView extends AppCompatActivity implements AdapterView.OnItemC
     private double currQuant;
 
     private String currSize;
+
+    private LinearLayout coffeelayout;
+
 
     /**
      * Creates the view for the coffee view
@@ -94,6 +104,8 @@ public class CoffeeView extends AppCompatActivity implements AdapterView.OnItemC
         pricesOfOrders = new ArrayList<Double>();
         totalPrice = findViewById(R.id.textView6);
         subTotal = findViewById(R.id.textViewSub);
+        coffeelayout = findViewById(R.id.coffeelayout);
+        coffeelayout.setBackgroundColor(Color.rgb(RED, GREEN, BLUE));
         setCheckBoxes();
         setCheckBoxesAgain();
 //        subTotal.setText(tempPrice + "");

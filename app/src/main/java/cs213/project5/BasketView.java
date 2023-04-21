@@ -147,7 +147,7 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
         String item = adapterView.getAdapter().getItem(i).toString();
         alert.setPositiveButton("yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getApplicationContext(), "Removed", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Removed", Toast.LENGTH_SHORT).show();
                 alldonuts.remove(adapterView.getAdapter().getItem(i).toString());
                 onRemove(item);
                 System.out.println(item);
@@ -280,7 +280,7 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
      * @param view The view object being dealt with
      */
     public void onPlace(View view) {
-        if(AllOrders.allOrderR().size() == ZERO) {
+        if(alldonuts.size() == ZERO) {
             Toast.makeText(getApplicationContext(), "No items" +
                     " in basket: add some to place order", Toast.LENGTH_SHORT).show();
             return;

@@ -1,6 +1,8 @@
 package cs213.project5;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +14,10 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton coffeeButton;
     private ImageButton orderButton;
     private ImageButton storeButton;
+    private ConstraintLayout constraintLayout;
+    private static int RED = 196;
+    private static int GREEN = 164;
+    private static int BLUE = 132;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         coffeeButton = findViewById(R.id.coffeeButton);
         orderButton = findViewById(R.id.bagButton);
         storeButton = findViewById(R.id.storeButton);
+        constraintLayout = findViewById(R.id.relativeLayout);
+        constraintLayout.setBackgroundColor(Color.rgb(RED, GREEN, BLUE));
     }
 
     public void DonutActivity(View view){

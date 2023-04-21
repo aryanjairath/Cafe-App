@@ -57,14 +57,16 @@ public class OrderingView extends AppCompatActivity implements AdapterView.OnIte
         //anonymous inner class to handle the onClick event of YES or NO.
         alert.setPositiveButton("yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getApplicationContext(), "Item Removed!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Item Removed!",
+                        Toast.LENGTH_LONG).show();
                 stringOrders.remove(adapterView.getAdapter().getItem(i).toString());
                 onRemove(item,i);
                 adapter.notifyDataSetChanged();
             }
         }).setNegativeButton("no", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getApplicationContext(), "Item not removed!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Item not removed!",
+                        Toast.LENGTH_LONG).show();
             }
         });
         AlertDialog dialog = alert.create();

@@ -14,7 +14,6 @@ public class AllOrders {
 
     public static int uniqueNumber = 1;
     public static double runningTotal = 0;
-
     public static final int INDEX = 0;
 
     /**
