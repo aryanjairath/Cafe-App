@@ -31,7 +31,6 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
     private TextView subtotal;
     private TextView tax;
     private TextView due;
-    private double total = 0;
     private static double TAXRATE = .06625;
 
     private static int SIZEINDEX = 1;
@@ -76,7 +75,7 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
      */
     private void recalculate() {
         int quantity;
-        total = 0;
+        double total = 0;
         for(int i = 0; i < alldonuts.size(); i++) {
             String value = alldonuts.get(i);
                 if (value.contains("Strawberry") || (value.contains("Vanilla") &&
@@ -114,6 +113,8 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
         double taxAmt = total * TAXRATE;
         tax.setText(round(taxAmt));
         due.setText(round(taxAmt + total)+"");
+        AllOrders.allOrder.get(ZERO).setPrice(total);
+
     }
 
 
@@ -221,7 +222,7 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
             amt = Double.parseDouble(subtotal.getText() + "") -
                     tempCoffee.itemPrice() * quantity;
         }
-        AllOrders.allOrder.get(list.size()-SIZEINDEX).setPrice(total);
+        AllOrders.allOrder.get(list.size()-SIZEINDEX).setPrice(amt);
         revealPricing();
     }
 
@@ -293,8 +294,8 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
         for(int i = 0; i < alldonuts.size(); i++){
             order.addItem(alldonuts.get(i));
         }
+
         AllOrders.addStoreOrder(order.getOrderNumber());
-        AllOrders.allOrder.get(ZERO).setPrice(total);
         AllOrders.allOrder = new ArrayList<>();
         AllOrders.runningTotal = ZERO;
         DonutView.setTotal(ZERO);
