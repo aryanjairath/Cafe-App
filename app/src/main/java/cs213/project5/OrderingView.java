@@ -12,13 +12,24 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+/**
+ * This class is the maiorderingn activity where the user
+ * can look at all of the orders in the store and select
+ * also remove orders altogether
+ * @author Aryan Jairath, Anis Chihoub
+ */
 public class OrderingView extends AppCompatActivity implements AdapterView.OnItemClickListener{
+
     private ListView ordersView;
 
     private ArrayAdapter<String> adapter;
 
     private ArrayList<String> stringOrders;
 
+    /**
+     * To be executed when the ordering activity starts
+     * @param savedInstanceState A bundle object with the state of the view.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +51,8 @@ public class OrderingView extends AppCompatActivity implements AdapterView.OnIte
 
 
     /**
-     * This is the method you must implement when you write implements AdapterView.OnItemClickListener
-     * in the class heading.
+     * This is the method you must implement when you write implements
+     * AdapterView.OnItemClickListener in the class heading.
      * This is the event handler for the onItemClick event.
      * @param adapterView the adapter view we want
      * @param view the current view object

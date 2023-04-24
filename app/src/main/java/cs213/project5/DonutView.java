@@ -1,10 +1,7 @@
 package cs213.project5;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,7 +18,13 @@ import android.widget.Toast;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-//Testing app for android
+
+/**
+ * This class is the donut activity where the user
+ * can choose different donuts with different flavors,
+ * and remove selections they no longer want
+ * @author Aryan Jairath, Anis Chihoub
+ */
 public class DonutView extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
     public static ArrayList<String> orders = new ArrayList<>();
@@ -33,7 +36,7 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
     private ImageView donutPic;
     public static double total;
     private Order order;
-    private int uniqueOrder = 0;
+    private int uniqueOrder = ZERO;
     public static ItemsAdapter adapter;
     private LinearLayout constraintLayout;
 
@@ -41,6 +44,7 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
     private static final int OFFSETTWO = 2;
     private static final int OFFSETONE = 1;
     private static int RED = 245;
+    private static int ZERO = 0;
     private static int GREEN = 245;
     private static int BLUE = 220;
 
@@ -60,7 +64,7 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
         spinnerflavor = findViewById(R.id.spinnerflavor);
         recycleview = findViewById(R.id.recycleItems);
         donutPic = findViewById(R.id.donutPics);
-        total = 0;
+        total = ZERO;
         order = new Order(uniqueOrder);
         adapter = new ItemsAdapter(this, orders); //create the adapter
         recycleview.setAdapter(adapter); //bind the list of items to the RecyclerView
@@ -179,7 +183,7 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
      */
     public void onAdd(View view) {
         String addDonut = spinnerflavor.getSelectedItem().toString();
-        addDonut += "("+spinnerquantity.getSelectedItem().toString()+")";
+        addDonut += "(" + spinnerquantity.getSelectedItem().toString() + ")";
         orders.add(addDonut);
         adapter.notifyDataSetChanged();
         int quantity = Integer.parseInt(spinnerquantity.getSelectedItem().toString());

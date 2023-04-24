@@ -16,6 +16,11 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+/**
+ * This is an Adapter class to be used to instantiate an adapter
+ * for the RecyclerView.
+ * @author Aryan Jairath, Anis Chihoub
+ */
 public class ItemsAdapter extends
         RecyclerView.Adapter<ItemsAdapter.ViewHolder> {
 
@@ -31,20 +36,32 @@ public class ItemsAdapter extends
         mContacts = contacts;
     }
 
+    /**
+     * This method will inflate the row layout for the items in the RecyclerView
+     * @param parent The parent ViewGroup which will be set
+     * @param i The type of ViewHolder being dealt with
+     * @return An ItemsAdapter representing the current ViewHolder
+     */
     @NonNull
     @Override
     public ItemsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        // Inflate the custom layout
-        View contactView = inflater.inflate(R.layout.recycleview, parent, false);
+        View contactView = inflater.inflate(R.layout.recycleview,
+                parent, false);
 
         // Return a new holder instance
         ViewHolder viewHolder = new ViewHolder(contactView);
         return viewHolder;
     }
 
+    /**
+     * Assign data values for each row according to their
+     * "position" (index) when the item becomesvisible on the screen.
+     * @param viewHolder the instance of ItemsHolder
+     * @param i the index of the item in the list of items
+     */
     @Override
     public void onBindViewHolder(@NonNull ItemsAdapter.ViewHolder viewHolder, int i) {
         String place = mContacts.get(i);
@@ -54,6 +71,10 @@ public class ItemsAdapter extends
         textView.setText(place);
     }
 
+    /**
+     * Get the number of items in the ArrayList.
+     * @return the number of items in the list.
+     */
     @Override
     public int getItemCount() {
         return mContacts.size();
@@ -61,6 +82,9 @@ public class ItemsAdapter extends
 
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
+    /**
+     * Get the views from the row layout file
+     */
     public class ViewHolder extends RecyclerView.ViewHolder {
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
@@ -69,11 +93,12 @@ public class ItemsAdapter extends
         private Button remove;
 
 
-        // We also create a constructor that accepts the entire item row
-        // and does the view lookups to find each subview
+        /**
+         * Constructor for the ViewHolder class
+         * @param itemView An itemView that has a button
+         * to remove items from the list
+         */
         public ViewHolder(View itemView) {
-            // Stores the itemView in a public final member variable that can be used
-            // to access the context from any ViewHolder instance.
             super(itemView);
             nameTextView = (TextView) itemView.findViewById(R.id.order_content);
             remove = itemView.findViewById(R.id.removebutton);
@@ -82,8 +107,18 @@ public class ItemsAdapter extends
 
         }
 
+        /**
+         * Adds an action listener when the remove icon is clicked
+         * within the recycler view
+         * @param itemView The View that is currently being dealt with
+         */
         private void setAddButtonOnClick(View itemView) {
             remove.setOnClickListener(new View.OnClickListener() {
+
+                /**
+                 * This method sets an alert when the minus icon is selected
+                 * @param view The View that is currently being dealt with
+                 */
                 @Override
                 public void onClick(View view) {
                     AlertDialog.Builder alert = new AlertDialog.Builder(itemView.getContext());
@@ -92,13 +127,21 @@ public class ItemsAdapter extends
                     String value = nameTextView.getText().toString();
                     //handle the "YES" click
                     alert.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                        /**
+                         * Handling the yes response to the prompt
+                         * @param dialog The current dialog being used
+                         * @param which The current index which is an int
+                         */
                         public void onClick(DialogInterface dialog, int which) {
                             doRemoving(value);
                         }
-
-
                         //handle the "NO" click
                     }).setNegativeButton("no", new DialogInterface.OnClickListener() {
+                        /**
+                         * Handling the no response to the prompt
+                         * @param dialog A DialogInterface currently being used
+                         * @param which The current index which is an int
+                         */
                         public void onClick(DialogInterface dialog, int which) {
                             Toast.makeText(itemView.getContext(),
                                     nameTextView.getText().toString() + " not added.",
@@ -110,6 +153,11 @@ public class ItemsAdapter extends
                 }
             });
         }
+
+        /**
+         * This method removes donuts and coffee from the basket
+         * @param value The value that is being removed from basket
+         */
         private void doRemoving(String value) {
             DonutView.orders.remove(nameTextView.getText().toString());
             DonutView.adapter.notifyDataSetChanged();

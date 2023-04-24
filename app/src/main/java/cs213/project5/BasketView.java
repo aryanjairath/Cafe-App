@@ -75,7 +75,7 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
      */
     private void recalculate() {
         int quantity;
-        double total = 0;
+        double total = ZERO;
         for(int i = 0; i < alldonuts.size(); i++) {
             String value = alldonuts.get(i);
                 if (value.contains("Strawberry") || (value.contains("Vanilla") &&
@@ -139,7 +139,7 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
      * @param adapterView The adapter for the list view
      * @param view The view object being dealt with
      * @param i The index of the item
-     * @param l A long value
+     * @param l A long value representing data
      */
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -166,20 +166,6 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
     }
 
     /**
-     * This method checks if the item in question is
-     * a donut or not
-     * @param value The item in String format
-     * @return A boolean representing if the item in question
-     * is a donut
-     */
-    private boolean hasDonut(String value){
-        return checkFlavor(value)  || value.contains("French") || value.contains("Original")
-                || value.contains("Powder") || value.contains("Birthday Cake") ||
-                value.contains("Chocolate Cake")
-                || value.contains("Cheese Cake");
-    }
-
-    /**
      * Removes the selected item from the list view and
      * changes the pricing accordingly
      * @param value The item to remove from the basket
@@ -187,7 +173,6 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
     protected void onRemove(String value){
         ArrayList<Order> list = AllOrders.allOrderR();
         list.get(list.size() - SIZEINDEX).getMenuItems().remove(value);
-        int quantity;
         double amt = ZERO;
         int quantity1 = Integer.parseInt(value.substring(value.indexOf('(')
                 + OFFSETINDEX, value.indexOf(')')));
@@ -195,34 +180,30 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
                 !value.contains("French Vanilla"))
                 || value.contains("Blueberry") || value.contains("Apple")
                 || value.contains("Grape") || value.contains("Passionfruit")) {
-                quantity = quantity1;
                 Yeast yeast = new Yeast("Any");
                 amt = Double.parseDouble(subtotal.getText() + "") -
-                        yeast.itemPrice() * quantity;
+                        yeast.itemPrice() * quantity1;
             }
             else if ((value.contains("French") && !value.contains("French Vanilla"))
-                || value.contains("Original")
-                || value.contains("Powder")) {
-                quantity = quantity1;
+                || value.contains("Original") || value.contains("Powder")) {
                 DonutHole hole = new DonutHole("Any");
                 amt = Double.parseDouble(subtotal.getText() + "") -
-                        hole.itemPrice() * quantity;
+                        hole.itemPrice() * quantity1;
             }
             else if (value.contains("Birthday Cake") || value.contains("Chocolate Cake")
                     || value.contains("Cheese Cake")) {
-                quantity = quantity1;
                 Cake cake = new Cake("Any");
                 amt = Double.parseDouble(subtotal.getText() + "") -
-                        cake.itemPrice() * quantity;
+                        cake.itemPrice() * quantity1;
         }else{
             String sizeOfCoffee = value.substring(ZERO, value.indexOf("("));
-            quantity = Integer.parseInt(value.substring(
+            quantity1 = Integer.parseInt(value.substring(
                     value.indexOf("(") + OFFSETINDEX, value.indexOf(")")));
             Coffee tempCoffee = getCoffeeObject(value, sizeOfCoffee);
             amt = Double.parseDouble(subtotal.getText() + "") -
-                    tempCoffee.itemPrice() * quantity;
+                    tempCoffee.itemPrice() * quantity1;
         }
-        AllOrders.allOrder.get(list.size()-SIZEINDEX).setPrice(amt);
+        AllOrders.allOrder.get(list.size() - SIZEINDEX).setPrice(amt);
         revealPricing();
     }
 
@@ -243,6 +224,12 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
         return tempCoffee;
     }
 
+    /**
+     * This method calculates the total number of addons
+     * for a given coffee sequence
+     * @param value The coffee sequence in String format
+     * @return The number of addons for the coffee
+     */
     public int numberOfAddons(String value){
         int numberOfAddons = ZEROADDONS;
         if(!value.contains("["))
@@ -262,8 +249,8 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
         subtotal.setText(round(list.get(list.size() - SIZEINDEX).getPrice()));
         double taxAmt = list.get(list.size() - SIZEINDEX).getPrice() * TAXRATE;
         tax.setText(round(taxAmt));
-        due.setText(round(taxAmt + list.get(list.size() - SIZEINDEX).
-                getPrice()) + "");
+        due.setText(round(taxAmt +
+                list.get(list.size() - SIZEINDEX).getPrice()) + "");
     }
 
     /**
@@ -301,6 +288,7 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
         DonutView.setTotal(ZERO);
         CoffeeView.setTotal(ZERO);
         AllOrders.incrementUnique();
-        Toast.makeText(getApplicationContext(), "Order placed", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Order placed",
+                Toast.LENGTH_SHORT).show();
     }
 }
