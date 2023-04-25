@@ -74,5 +74,33 @@
     <string name="Caramel">Caramel</string>
     <string name="Mocha">Mocha</string>
     <string name="AddCoffee">Add coffee</string>
+    <string name="OrderDonut">Order a Donut</string>
+    <string name="OrderCoffee">Order a Coffee</string>
+    <string name="StoreOrder">Check store orders</string>
+    <string name="CheckBag">Check your bag</string>
+    <string name="OrderingBasket">Ordering Basket</string>
+    <string name="totaldue">total due</string>
+    <string name="PlaceOrder">Place Order</string>
+
+    <string-array name="Names_of_Donuts">
+        <item>(Yeast)Strawberry Donut</item>
+        <item>(Yeast)Vanilla Donut</item>
+        <item>(Yeast)Blueberry Donut</item>
+        <item>(Yeast)Apple Donut</item>
+
+        <item>(Yeast)Grape Donut</item>
+        <item>(Yeast)Passionfruit Donut</item>
+        <item>(Cake) Birthday Cake Donut</item>
+        <item>(Cake) Chocolate Cake Donut</item>
+
+        <item>(Cake) Cheese Cake Donut</item>
+        <item>(Donut Hole) Original</item>
+        <item>(Donut Hole) French</item>
+        <item>(Donut Hole) Powder</item>
+    </string-array>
+
+
+
+
 
 </resources>

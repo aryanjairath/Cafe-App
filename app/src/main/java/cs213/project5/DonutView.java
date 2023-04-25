@@ -36,7 +36,7 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
     private RecyclerView recycleview;
     private RecyclerView donutTypes;
 
-    private ImageView donutPic;
+    public static ImageView donutPic;
     public static double total;
     private Order order;
     private int uniqueOrder = ZERO;
@@ -86,17 +86,17 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
         constraintLayout = findViewById(R.id.relativelay);
         constraintLayout.setBackgroundColor(Color.rgb(RED, GREEN, BLUE));
         doit();
-        spinnerdrop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
-                changeList(parent.getItemAtPosition(position).toString());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+//        spinnerdrop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view,
+//                                       int position, long id) {
+//                changeList(parent.getItemAtPosition(position).toString());
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//            }
+//        });
 
     }
 
@@ -127,17 +127,17 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
         flavors.add("Donut Hole - French");
         flavors.add("Donut Hole - Powder");
         typeadapter.notifyDataSetChanged();
-        /*ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.donuts, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         Spinner spinnerLangauge = findViewById(R.id.spinnerdrop);
         spinnerLangauge.setAdapter(adapter);
-        //String text = spinnerdrop.getSelectedItem().toString();
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
-                R.array.yeast, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        Spinner spinnerLangauge2 = findViewById(R.id.spinnerflavor);
-        spinnerLangauge2.setAdapter(adapter2);*/
+//        //String text = spinnerdrop.getSelectedItem().toString();
+//        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+//                R.array.yeast, android.R.layout.simple_spinner_item);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+//        Spinner spinnerLangauge2 = findViewById(R.id.spinnerFlavor);
+//        spinnerLangauge2.setAdapter(adapter2);
 
         ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this,
                 R.array.quantity, android.R.layout.simple_spinner_item);
@@ -151,33 +151,33 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
      * This method alters the spinner contents and pictures based
      * on what type of donut is selected
      * @param type A String representing the type of donut selected
-     */
-    public void changeList(String type){
-        if(type.equals("Yeast Donut")){
-            ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
-                    R.array.yeast, android.R.layout.simple_spinner_item);
-            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_item);
-            Spinner spinnerLangauge2 = findViewById(R.id.spinnerflavor);
-            donutPic.setImageResource(R.drawable.yeast);
-            spinnerLangauge2.setAdapter(adapter2);
-        }
-        if(type.equals("Cake Donut")){
-            ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
-                    R.array.cake, android.R.layout.simple_spinner_item);
-            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_item);
-            Spinner spinnerLangauge2 = findViewById(R.id.spinnerflavor);
-            donutPic.setImageResource(R.drawable.cake);
-            spinnerLangauge2.setAdapter(adapter2);
-        }
-        if(type.equals("Donut Hole")){
-            ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
-                    R.array.holes, android.R.layout.simple_spinner_item);
-            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_item);
-            Spinner spinnerLangauge2 = findViewById(R.id.spinnerflavor);
-            donutPic.setImageResource(R.drawable.holes);
-            spinnerLangauge2.setAdapter(adapter2);
-        }
-    }
+//     */
+//    public void changeList(String type){
+//        if(type.equals("Yeast Donut")){
+//            ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+//                    R.array.yeast, android.R.layout.simple_spinner_item);
+//            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_item);
+//            Spinner spinnerLangauge2 = findViewById(R.id.spinnerflavor);
+//            donutPic.setImageResource(R.drawable.yeast);
+//            spinnerLangauge2.setAdapter(adapter2);
+//        }
+//        if(type.equals("Cake Donut")){
+//            ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+//                    R.array.cake, android.R.layout.simple_spinner_item);
+//            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_item);
+//            Spinner spinnerLangauge2 = findViewById(R.id.spinnerflavor);
+//            donutPic.setImageResource(R.drawable.cake);
+//            spinnerLangauge2.setAdapter(adapter2);
+//        }
+//        if(type.equals("Donut Hole")){
+//            ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+//                    R.array.holes, android.R.layout.simple_spinner_item);
+//            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_item);
+//            Spinner spinnerLangauge2 = findViewById(R.id.spinnerflavor);
+//            donutPic.setImageResource(R.drawable.holes);
+//            spinnerLangauge2.setAdapter(adapter2);
+//        }
+    //}
 
     /**
      * This is the method you must implement when you write implements
@@ -203,7 +203,7 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
         orders.add(addDonut);
         adapter.notifyDataSetChanged();
         int quantity = Integer.parseInt(spinnerquantity.getSelectedItem().toString());
-        String donutType = donut.substring(0, donut.indexOf("-")-1);
+        String donutType = donut.substring(ZERO, donut.indexOf("-")-1);
         String flavor = donut.substring(donut.indexOf("-")+1);
         donutType = donutType.trim();
         if(donutType.equals("Yeast")){
@@ -218,8 +218,58 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
             DonutHole hole = new DonutHole(flavor);
             total += hole.itemPrice() * quantity;
         }
+        String typeOfDonut =  donut.substring(donut.indexOf("-")+1);
+        setDonutImage(typeOfDonut);
         round();
     }
+
+    /**
+     * Sets the image resource
+     * @param type a string containing the type of donut.
+     */
+    public static void setDonutImage(String type){
+        System.out.println(type);
+        switch (type){
+            case "Strawberry":
+                donutPic.setImageResource(R.drawable.strawberry);
+                break;
+            case "Vanilla":
+                donutPic.setImageResource(R.drawable.yeast);
+                break;
+            case "Blueberry":
+                donutPic.setImageResource(R.drawable.blueberry);
+                break;
+            case "Apple":
+                donutPic.setImageResource(R.drawable.apple);
+                break;
+            case "Grape":
+                donutPic.setImageResource(R.drawable.grape);
+                break;
+            case "Passionfruit":
+                donutPic.setImageResource(R.drawable.passionfruit);
+                break;
+            case "Birthday Cake":
+                donutPic.setImageResource(R.drawable.cake);
+                break;
+            case "Chocolate Cake":
+                donutPic.setImageResource(R.drawable.chocolate);
+                break;
+            case "Cheese Cake":
+                donutPic.setImageResource(R.drawable.cheesecake);
+                break;
+            case "Original":
+                donutPic.setImageResource(R.drawable.holes);
+                break;
+            case "French":
+                donutPic.setImageResource(R.drawable.french);
+                break;
+            case "Powder":
+                donutPic.setImageResource(R.drawable.powdered);
+                break;
+        }
+    }
+
+
 
 
     /**

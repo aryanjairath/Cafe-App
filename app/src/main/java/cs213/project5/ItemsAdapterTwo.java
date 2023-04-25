@@ -47,7 +47,7 @@ public class ItemsAdapterTwo extends
     public ItemsAdapterTwo.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View contactView = inflater.inflate(R.layout.recycleviewtwo,
+        View contactView = inflater.inflate(R.layout.recycleview,
                 parent, false);
 
         // Return a new holder instance
