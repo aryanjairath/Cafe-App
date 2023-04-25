@@ -228,14 +228,12 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
      * @param type a string containing the type of donut.
      */
     public static void setDonutImage(String type){
-        System.out.println(type);
         switch (type){
             case "Strawberry":
                 donutPic.setImageResource(R.drawable.strawberry);
                 break;
             case "Vanilla":
                 donutPic.setImageResource(R.drawable.yeast);
-                System.out.println(type);
                 break;
             case "Blueberry":
                 donutPic.setImageResource(R.drawable.blueberry);
