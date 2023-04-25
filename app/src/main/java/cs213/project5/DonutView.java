@@ -218,7 +218,7 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
             DonutHole hole = new DonutHole(flavor);
             total += hole.itemPrice() * quantity;
         }
-        String typeOfDonut =  donut.substring(donut.indexOf("-")+1);
+        String typeOfDonut =  donut.substring(donut.indexOf("-")+1).trim();
         setDonutImage(typeOfDonut);
         round();
     }
@@ -235,6 +235,7 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
                 break;
             case "Vanilla":
                 donutPic.setImageResource(R.drawable.yeast);
+                System.out.println(type);
                 break;
             case "Blueberry":
                 donutPic.setImageResource(R.drawable.blueberry);
