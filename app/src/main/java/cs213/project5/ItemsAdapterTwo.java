@@ -21,8 +21,8 @@ import java.util.ArrayList;
  * for the RecyclerView.
  * @author Aryan Jairath, Anis Chihoub
  */
-public class ItemsAdapter extends
-        RecyclerView.Adapter<ItemsAdapter.ViewHolder> {
+public class ItemsAdapterTwo extends
+        RecyclerView.Adapter<ItemsAdapterTwo.ViewHolder> {
 
     private ArrayList<String> mContacts;
     private Context context;
@@ -31,7 +31,7 @@ public class ItemsAdapter extends
     private static final int OFFSETTWO = 2;
 
     // Pass in the contact array into the constructor
-    public ItemsAdapter(Context context, ArrayList<String> contacts) {
+    public ItemsAdapterTwo(Context context, ArrayList<String> contacts) {
         this.context = context;
         mContacts = contacts;
     }
@@ -44,10 +44,10 @@ public class ItemsAdapter extends
      */
     @NonNull
     @Override
-    public ItemsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+    public ItemsAdapterTwo.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View contactView = inflater.inflate(R.layout.recycleview,
+        View contactView = inflater.inflate(R.layout.recycleviewtwo,
                 parent, false);
 
         // Return a new holder instance
@@ -62,7 +62,7 @@ public class ItemsAdapter extends
      * @param i the index of the item in the list of items
      */
     @Override
-    public void onBindViewHolder(@NonNull ItemsAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ItemsAdapterTwo.ViewHolder viewHolder, int i) {
         String place = mContacts.get(i);
 
         // Set item views based on your views and data model
@@ -121,7 +121,7 @@ public class ItemsAdapter extends
                 @Override
                 public void onClick(View view) {
                     AlertDialog.Builder alert = new AlertDialog.Builder(itemView.getContext());
-                    alert.setTitle("Remove from order?");
+                    alert.setTitle("Add item?");
                     alert.setMessage(nameTextView.getText().toString());
                     String value = nameTextView.getText().toString();
                     //handle the "YES" click
@@ -132,7 +132,7 @@ public class ItemsAdapter extends
                          * @param which The current index which is an int
                          */
                         public void onClick(DialogInterface dialog, int which) {
-                            doRemoving(value);
+                            doAdding(value);
                         }
                         //handle the "NO" click
                     }).setNegativeButton("no", new DialogInterface.OnClickListener() {
@@ -157,10 +157,9 @@ public class ItemsAdapter extends
          * This method removes donuts and coffee from the basket
          * @param value The value that is being removed from basket
          */
-        private void doRemoving(String value) {
-            DonutView.orders.remove(nameTextView.getText().toString());
-            DonutView.adapter.notifyDataSetChanged();
-            int quantity;
+        private void doAdding(String value) {
+            DonutView.onAdd(value);
+            /*int quantity;
             if(value.contains("Strawberry") || value.contains("Vanilla")
                     || value.contains("Blueberry") || value.contains("Apple")
                     || value.contains("Grape") || value.contains("Passionfruit")){
@@ -190,6 +189,6 @@ public class ItemsAdapter extends
             Toast.makeText(itemView.getContext(),
                     nameTextView.getText().toString() + " sucessfully removed.",
                     Toast.LENGTH_LONG).show();
-        }
+        */}
     }
 }

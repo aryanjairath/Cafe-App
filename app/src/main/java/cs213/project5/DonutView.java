@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 /**
@@ -27,26 +28,30 @@ import java.util.ArrayList;
  */
 public class DonutView extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
-    public static ArrayList<String> orders = new ArrayList<>();
+    public static ArrayList<String> orders;
+    public static ArrayList<String> flavors;
     private static TextView totalDonut;
-    private Spinner spinnerdrop;
-    private Spinner spinnerquantity;
-    private Spinner spinnerflavor;
+    private static Spinner spinnerdrop;
+    private static Spinner spinnerquantity;
     private RecyclerView recycleview;
+    private RecyclerView donutTypes;
+
     private ImageView donutPic;
     public static double total;
     private Order order;
     private int uniqueOrder = ZERO;
     public static ItemsAdapter adapter;
+    public static ItemsAdapterTwo typeadapter;
+    public static boolean style;
     private LinearLayout constraintLayout;
 
     private static final int TWODIGITS = 2;
     private static final int OFFSETTWO = 2;
     private static final int OFFSETONE = 1;
-    private static int RED = 245;
-    private static int ZERO = 0;
-    private static int GREEN = 245;
-    private static int BLUE = 220;
+    private static final int RED = 245;
+    private static final int ZERO = 0;
+    private static final int GREEN = 245;
+    private static final int BLUE = 220;
 
 
     /**
@@ -58,17 +63,26 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.donut_layout);
         orders = new ArrayList<>();
+        flavors = new ArrayList<>(
+                Arrays.asList("Yeast - Strawberry", "Yeast - Vanilla", "Yeast - Blueberry",
+                        "Yeast - Apple", "Yeast - Grape", "Yeast - Passionfruit",
+                        "Cake - Birthday Cake", "Cake - Chocolate Cake","Cake - Cheese Cake"));
         totalDonut = findViewById(R.id.totalDonut);
         spinnerdrop = findViewById(R.id.spinnerdrop);
         spinnerquantity = findViewById(R.id.spinnerquantity);
-        spinnerflavor = findViewById(R.id.spinnerflavor);
         recycleview = findViewById(R.id.recycleItems);
+        donutTypes = findViewById(R.id.donutTypes);
         donutPic = findViewById(R.id.donutPics);
         total = ZERO;
         order = new Order(uniqueOrder);
+        style = false;
         adapter = new ItemsAdapter(this, orders); //create the adapter
         recycleview.setAdapter(adapter); //bind the list of items to the RecyclerView
         recycleview.setLayoutManager(new LinearLayoutManager(this));
+        typeadapter = new ItemsAdapterTwo(this, flavors); //create the adapter
+        style = true;
+        donutTypes.setAdapter(typeadapter); //bind the list of items to the RecyclerView
+        donutTypes.setLayoutManager(new LinearLayoutManager(this));
         constraintLayout = findViewById(R.id.relativelay);
         constraintLayout.setBackgroundColor(Color.rgb(RED, GREEN, BLUE));
         doit();
@@ -81,7 +95,6 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
@@ -110,7 +123,11 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
      * types of donuts
      */
     public void doit(){
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        flavors.add("Donut Hole - Original");
+        flavors.add("Donut Hole - French");
+        flavors.add("Donut Hole - Powder");
+        typeadapter.notifyDataSetChanged();
+        /*ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.donuts, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         Spinner spinnerLangauge = findViewById(R.id.spinnerdrop);
@@ -120,7 +137,7 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
                 R.array.yeast, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         Spinner spinnerLangauge2 = findViewById(R.id.spinnerflavor);
-        spinnerLangauge2.setAdapter(adapter2);
+        spinnerLangauge2.setAdapter(adapter2);*/
 
         ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this,
                 R.array.quantity, android.R.layout.simple_spinner_item);
@@ -179,21 +196,21 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
     /**
      * This method performs actions of adding individual
      * donuts when corresponding button in view is pressed
-     * @param view The view that is being dealt with
      */
-    public void onAdd(View view) {
-        String addDonut = spinnerflavor.getSelectedItem().toString();
+    public static void onAdd(String donut) {
+        String addDonut = donut.substring(donut.indexOf("-")+1);
         addDonut += "(" + spinnerquantity.getSelectedItem().toString() + ")";
         orders.add(addDonut);
         adapter.notifyDataSetChanged();
         int quantity = Integer.parseInt(spinnerquantity.getSelectedItem().toString());
-        String donutType = spinnerdrop.getSelectedItem().toString();
-        String flavor = spinnerflavor.getSelectedItem().toString();
-        if(donutType.equals("Yeast Donut")){
+        String donutType = donut.substring(0, donut.indexOf("-")-1);
+        String flavor = donut.substring(donut.indexOf("-")+1);
+        donutType = donutType.trim();
+        if(donutType.equals("Yeast")){
             Yeast yeast = new Yeast(flavor);
             total += yeast.itemPrice() * quantity;
         }
-        if(donutType.equals("Cake Donut")){
+        if(donutType.equals("Cake")){
             Cake cake = new Cake(flavor);
             total += cake.itemPrice() * quantity;
         }
@@ -203,7 +220,6 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
         }
         round();
     }
-
 
 
     /**

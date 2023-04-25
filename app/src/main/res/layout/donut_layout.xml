@@ -60,51 +60,36 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="127dp"
+            android:layout_height="277dp"
             android:orientation="horizontal">
 
-            <Spinner
-                android:id="@+id/spinnerflavor"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/donutTypes"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingTop="50dp" />
+                android:layout_height="300dp">
 
-            <Button
-                android:id="@+id/addDonut"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/adddonut"
-                android:onClick="onAdd" />
+            </android.support.v7.widget.RecyclerView>
 
-            <Button
-                android:id="@+id/removeDonut"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycleItems"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/removedonut" />
+                android:layout_height="268dp"
+                android:layout_weight="1" />
 
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycleItems"
-            android:layout_width="match_parent"
-            android:layout_height="305dp"
-            android:layout_weight="1"/>
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="42dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:paddingLeft="9dp"
                 android:text="@string/donuttotal"
-                android:textSize="20sp"
-                android:paddingLeft = "9dp"/>
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/totalDonut"
@@ -117,8 +102,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/donutorder"
-                android:onClick="onAddOrder" />
+                android:onClick="onAddOrder"
+                android:text="@string/donutorder" />
         </LinearLayout>
     </LinearLayout>
 
