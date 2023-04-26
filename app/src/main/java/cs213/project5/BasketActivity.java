@@ -152,7 +152,6 @@ public class BasketActivity extends AppCompatActivity implements AdapterView.OnI
                 //Toast.makeText(getApplicationContext(), "Removed", Toast.LENGTH_SHORT).show();
                 alldonuts.remove(adapterView.getAdapter().getItem(i).toString());
                 onRemove(item);
-                System.out.println(item);
                 adapter.notifyDataSetChanged();
             }
         }).setNegativeButton("no", new DialogInterface.OnClickListener() {
