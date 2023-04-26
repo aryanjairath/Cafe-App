@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
      * @param view The current view being dealt with
      */
     public void DonutActivity(View view){
-        Intent donutIntent = new Intent(this, DonutView.class);
+        Intent donutIntent = new Intent(this, DonutActivity.class);
         startActivity(donutIntent);
     }
 
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
      * @param view The current view being dealt with
      */
     public void CoffeeActivity(View view){
-        Intent donutIntent = new Intent(this, CoffeeView.class);
+        Intent donutIntent = new Intent(this, CoffeeActivity.class);
         startActivity(donutIntent);
     }
 
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
      * @param view The current view being dealt with
      */
     public void OrderingActivity(View view){
-        Intent donutIntent = new Intent(this, OrderingView.class);
+        Intent donutIntent = new Intent(this, OrderingActivity.class);
         startActivity(donutIntent);
     }
 
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
      * @param view The current view being dealt with
      */
     public void BasketActivity(View view){
-        Intent donutIntent = new Intent(this, BasketView.class);
+        Intent donutIntent = new Intent(this, BasketActivity.class);
         startActivity(donutIntent);
     }
 

@@ -20,21 +20,21 @@
         </activity>
 
         <activity
-            android:name=".DonutView"
+            android:name=".DonutActivity"
             android:exported="true">
         </activity>
 
         <activity
-            android:name=".CoffeeView"
+            android:name=".CoffeeActivity"
             android:exported="true">
         </activity>
         <activity
-            android:name=".OrderingView"
+            android:name=".OrderingActivity"
             android:exported="true">
         </activity>
 
         <activity
-            android:name=".BasketView"
+            android:name=".BasketActivity"
             android:exported="true">
         </activity>
     </application>

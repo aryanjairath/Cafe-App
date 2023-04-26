@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * add add-ons, and remove selections
  * @author Aryan Jairath, Anis Chihoub
  */
-public class CoffeeView extends AppCompatActivity implements AdapterView.OnItemClickListener{
+public class CoffeeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
 
     private CheckBox sweetCream;
@@ -90,8 +90,7 @@ public class CoffeeView extends AppCompatActivity implements AdapterView.OnItemC
     private String currSize;
 
     private LinearLayout coffeelayout;
-
-
+    
     /**
      * Creates the view for the coffee view
      * @param savedInstanceState a bundle object with the state of the view.

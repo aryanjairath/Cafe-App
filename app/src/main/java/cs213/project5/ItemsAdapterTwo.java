@@ -3,7 +3,6 @@ package cs213.project5;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -47,7 +46,7 @@ public class ItemsAdapterTwo extends
     public ItemsAdapterTwo.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View contactView = inflater.inflate(R.layout.recycleview,
+        View contactView = inflater.inflate(R.layout.recycleviewtwo,
                 parent, false);
 
         // Return a new holder instance
@@ -85,12 +84,10 @@ public class ItemsAdapterTwo extends
      * Get the views from the row layout file
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
-        // Your holder should contain a member variable
-        // for any view that will be set as you render a row
+
         public TextView nameTextView;
         private ConstraintLayout parentLayout; //this is the row layout
         private Button remove;
-
 
         /**
          * Constructor for the ViewHolder class
@@ -100,7 +97,7 @@ public class ItemsAdapterTwo extends
         public ViewHolder(View itemView) {
             super(itemView);
             nameTextView = (TextView) itemView.findViewById(R.id.order_content);
-            remove = itemView.findViewById(R.id.removebutton);
+            remove = itemView.findViewById(R.id.addbutton);
             setAddButtonOnClick(itemView);
 
 
@@ -158,7 +155,7 @@ public class ItemsAdapterTwo extends
          * @param value The value that is being removed from basket
          */
         private void doAdding(String value) {
-            DonutView.onAdd(value);
+            DonutActivity.onAdd(value);
             /*int quantity;
             if(value.contains("Strawberry") || value.contains("Vanilla")
                     || value.contains("Blueberry") || value.contains("Apple")

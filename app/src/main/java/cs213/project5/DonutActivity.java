@@ -26,7 +26,7 @@ import java.util.Arrays;
  * and remove selections they no longer want
  * @author Aryan Jairath, Anis Chihoub
  */
-public class DonutView extends AppCompatActivity implements AdapterView.OnItemClickListener{
+public class DonutActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
     public static ArrayList<String> orders;
     public static ArrayList<String> flavors;
@@ -86,18 +86,6 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
         constraintLayout = findViewById(R.id.relativelay);
         constraintLayout.setBackgroundColor(Color.rgb(RED, GREEN, BLUE));
         doit();
-//        spinnerdrop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view,
-//                                       int position, long id) {
-//                changeList(parent.getItemAtPosition(position).toString());
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//            }
-//        });
-
     }
 
     /**
@@ -132,13 +120,6 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         Spinner spinnerLangauge = findViewById(R.id.spinnerdrop);
         spinnerLangauge.setAdapter(adapter);
-//        //String text = spinnerdrop.getSelectedItem().toString();
-//        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
-//                R.array.yeast, android.R.layout.simple_spinner_item);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-//        Spinner spinnerLangauge2 = findViewById(R.id.spinnerFlavor);
-//        spinnerLangauge2.setAdapter(adapter2);
-
         ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this,
                 R.array.quantity, android.R.layout.simple_spinner_item);
         adapter3.setDropDownViewResource(android.R.layout.simple_spinner_item);
@@ -147,37 +128,6 @@ public class DonutView extends AppCompatActivity implements AdapterView.OnItemCl
 
     }
 
-    /**
-     * This method alters the spinner contents and pictures based
-     * on what type of donut is selected
-     * @param type A String representing the type of donut selected
-//     */
-//    public void changeList(String type){
-//        if(type.equals("Yeast Donut")){
-//            ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
-//                    R.array.yeast, android.R.layout.simple_spinner_item);
-//            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_item);
-//            Spinner spinnerLangauge2 = findViewById(R.id.spinnerflavor);
-//            donutPic.setImageResource(R.drawable.yeast);
-//            spinnerLangauge2.setAdapter(adapter2);
-//        }
-//        if(type.equals("Cake Donut")){
-//            ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
-//                    R.array.cake, android.R.layout.simple_spinner_item);
-//            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_item);
-//            Spinner spinnerLangauge2 = findViewById(R.id.spinnerflavor);
-//            donutPic.setImageResource(R.drawable.cake);
-//            spinnerLangauge2.setAdapter(adapter2);
-//        }
-//        if(type.equals("Donut Hole")){
-//            ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
-//                    R.array.holes, android.R.layout.simple_spinner_item);
-//            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_item);
-//            Spinner spinnerLangauge2 = findViewById(R.id.spinnerflavor);
-//            donutPic.setImageResource(R.drawable.holes);
-//            spinnerLangauge2.setAdapter(adapter2);
-//        }
-    //}
 
     /**
      * This is the method you must implement when you write implements

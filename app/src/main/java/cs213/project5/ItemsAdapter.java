@@ -3,7 +3,6 @@ package cs213.project5;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -158,8 +157,8 @@ public class ItemsAdapter extends
          * @param value The value that is being removed from basket
          */
         private void doRemoving(String value) {
-            DonutView.orders.remove(nameTextView.getText().toString());
-            DonutView.adapter.notifyDataSetChanged();
+            DonutActivity.orders.remove(nameTextView.getText().toString());
+            DonutActivity.adapter.notifyDataSetChanged();
             int quantity;
             if(value.contains("Strawberry") || value.contains("Vanilla")
                     || value.contains("Blueberry") || value.contains("Apple")
@@ -170,23 +169,23 @@ public class ItemsAdapter extends
                 Toast.makeText(itemView.getContext(),
                         nameTextView.getText().toString() + " sucessfully " +
                                 "removed.", Toast.LENGTH_LONG).show();
-                DonutView.total -= yeast.itemPrice() * quantity;
+                DonutActivity.total -= yeast.itemPrice() * quantity;
             }
             if(value.contains("French") || value.contains("Original")
                     || value.contains("Powder")){
                 quantity = Integer.parseInt(value.substring(value.length() -
                         OFFSETTWO,value.length() - OFFSETONE));
                 DonutHole hole = new DonutHole("Any");
-                DonutView.total -= hole.itemPrice() * quantity;
+                DonutActivity.total -= hole.itemPrice() * quantity;
             }
             if(value.contains("Birthday Cake") || value.contains("Chocolate Cake")
                     || value.contains("Cheese Cake")){
                 quantity = Integer.parseInt(value.substring(value.length() -
                         OFFSETTWO,value.length() - OFFSETONE));
                 Cake cake = new Cake("Any");
-                DonutView.total -= cake.itemPrice() * quantity;
+                DonutActivity.total -= cake.itemPrice() * quantity;
             }
-            DonutView.putAmount();
+            DonutActivity.putAmount();
             Toast.makeText(itemView.getContext(),
                     nameTextView.getText().toString() + " sucessfully removed.",
                     Toast.LENGTH_LONG).show();

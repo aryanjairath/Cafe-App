@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * also remove orders altogether
  * @author Aryan Jairath, Anis Chihoub
  */
-public class OrderingView extends AppCompatActivity implements AdapterView.OnItemClickListener{
+public class OrderingActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
     private ListView ordersView;
 

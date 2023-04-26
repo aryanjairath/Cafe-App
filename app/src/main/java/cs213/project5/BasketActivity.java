@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * in the shopping bag can be viewed and edited
  * @author Aryan Jairath, Anis Chihoub
  */
-public class BasketView extends AppCompatActivity implements AdapterView.OnItemClickListener{
+public class BasketActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
     private static final int ZEROADDONS = 0;
     private static final int TWODIGITS = 2;
 
@@ -285,8 +285,8 @@ public class BasketView extends AppCompatActivity implements AdapterView.OnItemC
         AllOrders.addStoreOrder(order.getOrderNumber());
         AllOrders.allOrder = new ArrayList<>();
         AllOrders.runningTotal = ZERO;
-        DonutView.setTotal(ZERO);
-        CoffeeView.setTotal(ZERO);
+        DonutActivity.setTotal(ZERO);
+        CoffeeActivity.setTotal(ZERO);
         AllOrders.incrementUnique();
         Toast.makeText(getApplicationContext(), "Order placed",
                 Toast.LENGTH_SHORT).show();
