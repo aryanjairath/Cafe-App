@@ -148,13 +148,13 @@ public class DonutActivity extends AppCompatActivity implements AdapterView.OnIt
      * donuts when corresponding button in view is pressed
      */
     public static void onAdd(String donut) {
-        String addDonut = donut.substring(donut.indexOf("-")+1);
+        String addDonut = donut.substring(donut.indexOf("-") + OFFSETONE);
         addDonut += "(" + spinnerquantity.getSelectedItem().toString() + ")";
         orders.add(addDonut);
         adapter.notifyDataSetChanged();
         int quantity = Integer.parseInt(spinnerquantity.getSelectedItem().toString());
-        String donutType = donut.substring(ZERO, donut.indexOf("-")-1);
-        String flavor = donut.substring(donut.indexOf("-")+1);
+        String donutType = donut.substring(ZERO, donut.indexOf("-") - OFFSETONE);
+        String flavor = donut.substring(donut.indexOf("-") + OFFSETONE);
         donutType = donutType.trim();
         if(donutType.equals("Yeast")){
             Yeast yeast = new Yeast(flavor);
@@ -168,7 +168,7 @@ public class DonutActivity extends AppCompatActivity implements AdapterView.OnIt
             DonutHole hole = new DonutHole(flavor);
             total += hole.itemPrice() * quantity;
         }
-        String typeOfDonut =  donut.substring(donut.indexOf("-")+1).trim();
+        String typeOfDonut =  donut.substring(donut.indexOf("-") + OFFSETONE).trim();
         setDonutImage(typeOfDonut);
         round();
     }
