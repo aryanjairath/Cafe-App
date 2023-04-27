@@ -19,6 +19,8 @@
         <entry key="app/src/main/res/layout/donut_layout_2.xml" value="0.1" />
         <entry key="app/src/main/res/layout/recycleview.xml" value="0.1" />
         <entry key="app/src/main/res/layout/store_orders_layout.xml" value="0.1" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
       </map>
     </option>
   </component>
